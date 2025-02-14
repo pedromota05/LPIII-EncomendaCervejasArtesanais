@@ -8,16 +8,17 @@ import {
 } from "typeorm";
 import Interesse from "./interesse";
 import Maestro from "./maestro";
-//corrigir os atributos
+
 export enum Categoria {
-  EXTENSÃO = "Extensão",
-  IC = "Iniciação Científica",
-  TCC = "TCC",
+  CONCERTO = "concerto",
+  SHOW = "show",
+  FESTIVAL = "festival",
 }
-export enum Resultado {
-  ARTIGO = "artigo",
-  DESENVOLVIMENTO = "desenvolvimento",
-  MONOGRAFIA = "monografia",
+
+export enum Repertório {
+  CLÁSSICO = "clássico",
+  POP = "pop",
+  MISTO = "misto",
 }
 
 @Entity()
@@ -31,20 +32,14 @@ export default class Proposta extends BaseEntity {
   @Column({ type: "enum", enum: Categoria })
   categoria: Categoria;
 
-  @Column()
-  área_atuação: string;
+  @Column({ type: "enum", enum: Repertório })
+  repertório: Repertório;
 
   @Column({ type: "date" })
-  data_início: Date;
+  data_proposta: Date;
 
   @Column()
   descrição: string;
-
-  @Column()
-  concorrendo_bolsa: boolean;
-
-  @Column({ type: "enum", enum: Resultado })
-  resultado: Resultado;
 
   @ManyToOne(() => Maestro, (maestro) => maestro.propostas, {
     onDelete: "CASCADE",

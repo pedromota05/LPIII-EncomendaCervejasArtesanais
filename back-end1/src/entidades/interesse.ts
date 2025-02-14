@@ -15,14 +15,14 @@ export default class Interesse extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  necessidade_bolsa: boolean;
+  @CreateDateColumn()
+  data_manifestação: Date;
 
   @Column()
   justificativa: string;
 
-  @CreateDateColumn()
-  data_manifestação: Date;
+  @Column()
+  orçamento_disponível: number;
 
   @ManyToOne(() => Proposta, (proposta) => proposta.interesses, {
     onDelete: "CASCADE",

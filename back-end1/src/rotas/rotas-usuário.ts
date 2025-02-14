@@ -1,5 +1,6 @@
 import { Router } from "express";
-import ServiçosUsuário from "../serviços/serviços-usuário";
+import ServiçosUsuário from "src/serviços/serviços-usuário";
+
 const RotasUsuário = Router();
 export default RotasUsuário;
 RotasUsuário.post("/login", ServiçosUsuário.logarUsuário);

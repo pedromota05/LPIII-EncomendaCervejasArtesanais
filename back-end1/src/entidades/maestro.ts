@@ -16,18 +16,26 @@ export enum Titulação {
   DOUTORADO = "doutorado",
 }
 
-// conferir se a relação com a entidade Usuário está correta
+export enum Especialidade {
+  Clássico = "clássico",
+  Pop = "pop",
+  Jazz = "Jazz",
+  Contemporâneo = "contemporâneo",
+}
 
 @Entity()
 export default class Maestro extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: number; //n seria string?
 
   @Column({ type: "enum", enum: Titulação })
   titulação: Titulação;
 
   @Column()
-  anos_experiência_empresarial: number;
+  anos_experiência: number;
+
+  @Column()
+  especialidade: Especialidade;
 
   @OneToMany(() => Proposta, (proposta) => proposta.maestro)
   propostas: Proposta[];

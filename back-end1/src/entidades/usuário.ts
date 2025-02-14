@@ -18,6 +18,7 @@ export enum Perfil {
 export enum Status {
   PENDENTE = "pendente",
   ATIVO = "ativo",
+  INATIVO = "inativo",
 }
 
 export enum Cores {

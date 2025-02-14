@@ -10,9 +10,10 @@ import {
 import Usuário from "./usuário";
 import Interesse from "./interesse";
 // corrigir os atributos
-export enum Curso {
-  EC = "Engenharia de Computação",
-  SI = "Sistemas de Informação",
+export enum Setor {
+  Ev = "Eventos",
+  PB = "Publicidade",
+  ET = "Entretenimento",
 }
 
 @Entity()
@@ -20,17 +21,14 @@ export default class Empresário extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: "enum", enum: Curso })
-  curso: Curso;
+  @Column()
+  empresa: string;
+
+  @Column({ type: "enum", enum: Setor })
+  curso: Setor;
 
   @Column()
-  ano_ingresso: number;
-
-  @Column({ type: "date" })
-  data_nascimento: Date;
-
-  @Column()
-  telefone: string;
+  telefone: number;
 
   @OneToMany(() => Interesse, (interesse) => interesse.empresário)
   interesses: Interesse[];
