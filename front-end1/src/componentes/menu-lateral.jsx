@@ -54,7 +54,7 @@ export default function MenuLateral({ children }) {
     switch (usuárioLogado.perfil) {
       case "maestro":
         return opçõesMaestro;
-      case "aluno":
+      case "empresário":
         return opçõesEmpresário;
       default:
         return;

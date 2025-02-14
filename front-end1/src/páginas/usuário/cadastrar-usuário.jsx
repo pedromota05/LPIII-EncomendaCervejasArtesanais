@@ -283,8 +283,7 @@ export default function CadastrarUsuário() {
             value={dados.email}
             onChange={alterarEstado}
           />
-          Prof. Joinvile Batista Junior - Sistemas de Informação - FACET/UFGD
-          Linguagem de Programação III - Tutorial 1 - 23/52
+
           <MostrarMensagemErro mensagem={erros.email} />
         </div>
         <Divider className={estilizarDivider(dados.cor_tema)} />

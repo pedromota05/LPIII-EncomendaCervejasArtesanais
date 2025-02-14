@@ -41,8 +41,8 @@ export default function ModalConfirmaçãoUsuário() {
   }
   function exibirPerfilFormatado() {
     switch (dados.perfil) {
-      case "professor":
-        return "Professor";
+      case "maestro":
+        return "Maestro";
       default:
         return "";
     }
@@ -56,10 +56,10 @@ export default function ModalConfirmaçãoUsuário() {
     }
   }
   function finalizarCadastro() {
-    if (dados.perfil === "professor") {
+    if (dados.perfil === "maestro") {
       setUsuárioLogado({ ...dados, cadastrado: false });
       setMostrarModalConfirmação(false);
-      navegar("../cadastrar-professor");
+      navegar("../cadastrar-maestro");
     }
   }
   function executarOperação() {

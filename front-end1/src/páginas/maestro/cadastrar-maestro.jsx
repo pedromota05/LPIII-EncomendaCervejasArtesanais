@@ -10,7 +10,7 @@ import ContextoUsuário from "../../contextos/contexto-usuário";
 import {
   serviçoCadastrarMaestro,
   serviçoBuscarMaestro,
-} from "../../serviços/serviços-Maestro";
+} from "../../serviços/serviços-maestro";
 import mostrarToast from "../../utilitários/mostrar-toast";
 import {
   MostrarMensagemErro,
@@ -44,6 +44,13 @@ export default function CadastrarMaestro() {
   const opçõesTitulação = [
     { label: "Mestrado", value: "mestrado" },
     { label: "Doutorado", value: "doutorado" },
+  ];
+
+  const opçõesEspecialidade = [
+    { label: "Clássico", value: "clássico" },
+    { label: "Jazz", value: "jazz" },
+    { label: "Pop", value: "pop" },
+    { label: "Contemporâneo", value: "contemporaneo" },
   ];
 
   function alterarEstado(event) {
@@ -126,6 +133,7 @@ export default function CadastrarMaestro() {
             ...dados,
             titulação: response.data.titulação,
             anos_experiência: response.data.anos_experiência,
+            especialidade: response.data.especialidade,
           }));
         }
       } catch (error) {
@@ -165,6 +173,17 @@ export default function CadastrarMaestro() {
             placeholder="-- Selecione --"
           />
           {/* criar o dropdown da especialidade também */}
+          <Dropdown
+            name="especialidade"
+            className={estilizarDropdown(
+              erros.especialidade,
+              usuárioLogado.cor_tema
+            )}
+            value={dados.especialidade}
+            options={opçõesEspecialidade}
+            onChange={alterarEstado}
+            placeholder="-- Selecione --"
+          />
           <MostrarMensagemErro mensagem={erros.titulação} />
         </div>
         <div className={estilizarDivCampo()}>
