@@ -26,7 +26,7 @@ export enum Especialidade {
 @Entity()
 export default class Maestro extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id: number; //n seria string?
+  id: number;
 
   @Column({ type: "enum", enum: Titulação })
   titulação: Titulação;

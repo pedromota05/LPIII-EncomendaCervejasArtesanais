@@ -72,7 +72,7 @@ export default function CadastrarUsuário() {
 
   const opçõesPerfis = [
     { label: "Maestro", value: "maestro" },
-    { label: "Empresário", value: "empresario" },
+    { label: "Empresário", value: "empresário" },
   ];
 
   function alterarEstado(event) {
@@ -177,14 +177,16 @@ export default function CadastrarUsuário() {
 
   async function validarConfirmarCriação() {
     const camposVálidos = validarCampos();
+    console.log("dados: ", dados);
     if (camposVálidos) {
       let response;
       try {
         response = await serviçoVerificarCpfExistente(dados.cpf);
         if (response) confirmarOperação("salvar");
       } catch (error) {
-        if (error.response.data.erro)
+        if (error.response.data.erro) {
           mostrarToast(referênciaToast, error.response.data.erro, "erro");
+        }
       }
     }
   }
