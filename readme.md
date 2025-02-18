@@ -121,7 +121,7 @@ Clicando no `+`, é possível usar mais de um terminal ao mesmo tempo, facilitan
 3. Execute o comando para iniciar a aplicação web (esteja no diretório do backend):
 
    ```sh
-   yarn webapp
+   yarn web
    ```
 
 4. Abra o navegador e acesse:
