@@ -3,6 +3,7 @@ body {
   padding: 0;
   font-family: var(--font-family);
   background-color: var(--surface-100);
+  min-width: 350px;
 }
 h1 {
   margin: 0;
@@ -12,7 +13,7 @@ label,
 a {
   color: var(--text-color);
 } /* Aplica cor primária de texto do tema */
-.p-inputtext {
+.p-inputgroup {
   height: 32px;
 } /* Alterar altura de InputText */
 .field label {
@@ -30,7 +31,7 @@ a {
 /* Margem abaixo do título do card */
 .p-card-title {
   font-size: 1.4rem !important;
-  margin-bottom: 24px !important;
+  margin-bottom: 20px !important;
 }
 .p-card-body {
   padding: 0 15px !important;
@@ -94,6 +95,142 @@ td {
 .input30 {
   width: 30px;
 } /* estado */
+
+/* meus */
+.my_card {
+  width: 400px;
+  min-height: 400px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 8px !important;
+  padding: 16px 16px;
+  position: relative;
+}
+.my_card .p-card-title {
+  text-align: center;
+  color: rgb(45, 64, 90);
+  font-size: 1.5rem !important;
+  font-weight: 700;
+}
+.button-form-login {
+  padding: 10px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  background-color: rgb(45, 64, 90);
+  border: none;
+  border-radius: 28px;
+}
+.button-confirmacao-cadastro {
+  padding: 10px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  background-color: green;
+  border: none;
+  border-radius: 28px;
+  width: 50%;
+  display: block;
+  margin: 0 auto;
+}
+.btn-recupe-acesso {
+  display: block;
+  text-align: right;
+  color: #000000de;
+  text-decoration: none;
+  font-size: 14px;
+}
+.btn-recupe-acesso:hover {
+  text-decoration: underline !important;
+}
+.my_card_criador {
+  width: 500px;
+  min-height: 400px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 8px !important;
+  padding: 16px 16px;
+  position: relative;
+}
+.my_card_criador .p-card-title {
+  text-align: center;
+  color: rgb(45, 64, 90);
+  font-size: 1.3rem !important;
+  font-weight: 700;
+}
+.card-cadastro .p-card-title {
+  text-align: center;
+  color: rgb(45, 64, 90);
+  font-size: 1.3rem !important;
+  font-weight: 700;
+  margin-top: 10px;
+}
+.p-inputtext:enabled:hover {
+  border-color: none;
+}
+.p-inputtext:enabled:focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: none;
+  border-color: none;
+}
+.input-container {
+  display: flex;
+  justify-content: space-between;
+}
+.input-field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+}
+.input-field:last-child {
+  margin-right: 0;
+}
+.input-field label {
+  margin-bottom: 5px;
+}
+.input-field input,
+.input-field .p-inputtext {
+  width: 100%;
+}
+.margin-responsive {
+  font-size: 0.9rem !important;
+}
+.p-input-icon-right > .p-inputtext {
+  width: 100%;
+}
+.w-card-user {
+  width: 60%
+}
+/*  */
+@media (max-width: 992px) {
+  .image-responsive {
+    margin-top: -60px;
+  }
+}
+@media (max-width: 768px) {
+  .margin-responsive {
+    margin-bottom: 8px;
+  }
+  .text-2xl {
+    font-size: 1.2rem !important;
+  }
+  .input-container {
+    flex-direction: column;
+  }
+  .input-field {
+    width: 100%;
+    margin-right: 0;
+  }
+  .margin-cadastrar-mobile {
+    margin-top: 1rem;
+  }
+  .input-width-mobile {
+    width: 100% !important;
+  }
+  .w-card-user {
+    width: 85%;
+  }
+}
 @media (max-width: 576px) {
   .input400 {
     width: auto;
@@ -114,11 +251,13 @@ td {
     max-width: 100%;
     height: 100%;
   }
-  .p-sidebar .p-sidebar-header {
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-  }
   .p-card-title {
     font-size: 1.2rem !important;
+  }
+  .my_card {
+    width: auto;
+  }
+  .my_card_criador {
+    width: auto;
   }
 }

@@ -2,11 +2,11 @@ import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 import md5 from "md5";
 import { sign } from "jsonwebtoken";
+
 import Usuário, { Perfil } from "../entidades/usuário";
-import Professor from "../entidades/maestro";
-import Aluno from "../entidades/empresário";
-import Maestro from "../entidades/maestro";
-import Empresário from "../entidades/empresário";
+import Criador from "../entidades/criador";
+import Empório from "../entidades/empório";
+
 dotenv.config();
 
 const SALT = 10;
@@ -18,34 +18,30 @@ export default class ServiçosUsuário {
     try {
       const cpf_encriptado = md5(request.params.cpf);
       const usuário = await Usuário.findOne(cpf_encriptado);
-      if (usuário)
-        return response.status(404).json({ erro: "CPF já cadastrado." });
+      if (usuário) return response.status(404).json({ erro: "CPF já cadastrado." });
       else return response.json();
     } catch (error) {
-      return response
-        .status(500)
-        .json({ erro: "Erro BD: verificarCpfCadastrado" });
+      return response.status(500).json({ erro: "Erro BD: verificarCpfCadastrado" });
     }
   }
 
   static async verificarCadastroCompleto(usuário: Usuário) {
     switch (usuário.perfil) {
-      case Perfil.MAESTRO:
-        const maestro = await Maestro.findOne({
+      case Perfil.CRIADOR:
+        const criador = await Criador.findOne({
           where: { usuário: usuário.cpf },
           relations: ["usuário"],
         });
-        if (!maestro) return false;
+        if (!criador) return false;
         return true;
-      case Perfil.EMPRESÁRIO:
-        const empresário = await Empresário.findOne({
+      case Perfil.EMPÓRIO:
+        const empório = await Empório.findOne({
           where: { usuário: usuário.cpf },
           relations: ["usuário"],
         });
-        if (!empresário) return false;
+        if (!empório) return false;
         return true;
-      default:
-        return;
+      default: return;
     }
   }
 
@@ -54,29 +50,21 @@ export default class ServiçosUsuário {
       const { nome_login, senha } = request.body;
       const cpf_encriptado = md5(nome_login);
       const usuário = await Usuário.findOne(cpf_encriptado);
-      if (!usuário)
-        return response
-          .status(404)
-          .json({ erro: "Nome de usuário não cadastrado." });
-      const cadastro_completo = await ServiçosUsuário.verificarCadastroCompleto(
-        usuário
-      );
+      if (!usuário) return response.status(404).json({ erro: "Nome de usuário não cadastrado." });
+      const cadastro_completo = await ServiçosUsuário.verificarCadastroCompleto(usuário);
       if (!cadastro_completo) {
         await Usuário.remove(usuário);
         return response.status(400).json({
           erro: "Cadastro incompleto. Por favor, realize o cadastro novamente.",
         });
       }
-
       const senha_correta = await bcrypt.compare(senha, usuário.senha);
-      if (!senha_correta)
-        return response.status(401).json({ erro: "Senha incorreta." });
+      if (!senha_correta) return response.status(401).json({ erro: "Senha incorreta." });
       const token = sign(
         { perfil: usuário.perfil, email: usuário.email },
         SENHA_JWT,
         { subject: usuário.nome, expiresIn: "1d" }
       );
-      //verificar se o usuário est certo
       return response.json({
         usuárioLogado: {
           nome: usuário.nome,
@@ -95,8 +83,7 @@ export default class ServiçosUsuário {
 
   static async cadastrarUsuário(usuário_informado) {
     try {
-      const { cpf, nome, perfil, email, senha, questão, resposta, cor_tema } =
-        usuário_informado;
+      const { cpf, nome, perfil, email, senha, questão, resposta, cor_tema } = usuário_informado;
       const cpf_encriptado = md5(cpf);
       const senha_encriptada = await bcrypt.hash(senha, SALT);
       const resposta_encriptada = await bcrypt.hash(resposta, SALT);

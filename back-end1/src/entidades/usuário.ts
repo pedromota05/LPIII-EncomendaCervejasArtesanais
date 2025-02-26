@@ -7,12 +7,12 @@ import {
   PrimaryColumn,
 } from "typeorm";
 
-import Maestro from "./maestro";
-import Empresário from "./empresário";
+import Criador from "./criador";
+import Empório from "./empório";
 
 export enum Perfil {
-  EMPRESÁRIO = "empresário",
-  MAESTRO = "maestro",
+  EMPÓRIO = "empório",
+  CRIADOR = "criador",
 }
 
 export enum Status {
@@ -64,11 +64,11 @@ export default class Usuário extends BaseEntity {
   @Column({ type: "enum", enum: Cores })
   cor_tema: string;
 
-  @OneToOne(() => Maestro, (maestro) => maestro.usuário)
-  maestro: Maestro;
+  @OneToOne(() => Criador, (criador) => criador.usuário)
+  criador: Criador;
 
-  @OneToOne(() => Empresário, (empresário) => empresário.usuário)
-  empresário: Empresário;
+  @OneToOne(() => Empório, (empório) => empório.usuário)
+  empório: Empório;
 
   @CreateDateColumn()
   data_criação: Date;

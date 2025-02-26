@@ -1,10 +1,12 @@
 import { useContext, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import { InputMask } from "primereact/inputmask";
 import { Password } from "primereact/password";
 import { Toast } from "primereact/toast";
+
 import ContextoUsuário from "../../contextos/contexto-usuário";
 import { serviçoLogarUsuário } from "../../serviços/serviços-usuário";
 import mostrarToast from "../../utilitários/mostrar-toast";
@@ -65,30 +67,41 @@ export default function LogarUsuário() {
     setDados({ ...dados, [chave]: valor });
   }
 
+  function handleKeyDown(event) {
+    if (event.key === "Enter") {
+      logarUsuário();
+    }
+  }
+
   return (
-    <div className={estilizarPáginaÚnica()}>
+    <div className={estilizarPáginaÚnica()} onKeyDown={handleKeyDown}>
       <Toast ref={referênciaToast} position="bottom-center" />
-      <h1 className={estilizarLogo()}>Propostas de Apresentações Musicais</h1>
-      <Card title="Login" className={estilizarCard()}>
-        <div className={estilizarDivCampo()}>
-          <label className={estilizarLabel()}>Usuário</label>
-          <InputMask
-            name="nome_login"
-            size={TAMANHOS.CPF}
-            className={estilizarInputMask(erros.nome_login)}
-            autoClear
-            mask={CPF_MÁSCARA}
-            value={dados.nome_login}
-            onChange={alterarEstado}
-          />
-          <MostrarMensagemErro mensagem={erros.nome_login} />
+      <h1 className={estilizarLogo()}>Encomenda de Cervejas Artesanais</h1>
+      <Card title="Login" className="my_card">
+        <div className="flex mb-5" style={{ flexDirection: "column" }}>
+          <label className="mb-1 font-bold">Usuário</label>
+          <div className="p-inputgroup flex-1">
+            <span className="p-inputgroup-addon">
+              <i className="pi pi-user"></i>
+            </span>
+            <InputMask
+              name="nome_login"
+              size={TAMANHOS.CPF}
+              className={`${estilizarInputMask(erros.nome_login)} border rounded px-2 py-1`}
+              autoClear
+              mask={CPF_MÁSCARA}
+              value={dados.nome_login}
+              onChange={alterarEstado}
+            />
+            <MostrarMensagemErro mensagem={erros.nome_login} />
+          </div>
         </div>
-        <div className={estilizarDivCampo()}>
-          <label className={estilizarLabel()}>Senha</label>
+        <div className="flex mb-5" style={{ flexDirection: "column" }}>
+          <label className="mb-1 font-bold">Senha</label>
           <Password
             name="senha"
-            inputClassName={estilizarPasswordTextInputBorder()}
-            className={estilizarPasswordInput(erros.senha)}
+            inputClassName={`${estilizarPasswordTextInputBorder()} w-full`}
+            className={`${estilizarPasswordInput(erros.senha)} border rounded py-1 w-full`}
             size={TAMANHOS.SENHA}
             value={dados.senha}
             feedback={false}
@@ -99,16 +112,19 @@ export default function LogarUsuário() {
         </div>
         <div className={estilizarFlex("center")}>
           <Button
-            className={estilizarBotão()}
+            className="button-form-login w-full"
             label="Login"
             onClick={logarUsuário}
           />
-          <Link className={estilizarLink()} to="/pagina-inicial">
-            Recuperar Acesso de Usuário
+          <Link className="w-full btn-recupe-acesso mt-2" to="/pagina-inicial">
+            Recuperar Acesso de Usuário?
           </Link>
-          <Link className={estilizarLink()} to="/criar-usuario">
-            Cadastrar Usuário
-          </Link>
+          <div className="w-full my-5 text-center">
+            <span>Não tem uma conta?</span>
+            <Link className="ml-1" style={{color: "#26a69a"}} to="/criar-usuario">
+              Cadastrar Usuário
+            </Link>
+          </div>
         </div>
       </Card>
     </div>

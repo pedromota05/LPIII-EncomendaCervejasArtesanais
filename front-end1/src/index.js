@@ -14,10 +14,6 @@ addLocale("pt", português);
 locale("pt");
 const rootElement = document.getElementById("root");
 
-const App = (
-  <ProvedorUsuário>
-    <Rotas />
-  </ProvedorUsuário>
-);
+const App = (<ProvedorUsuário><Rotas /></ProvedorUsuário>);
 if (rootElement.hasChildNodes()) hydrateRoot(App, rootElement);
 else createRoot(rootElement).render(App);

@@ -1,16 +1,19 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import { Divider } from "primereact/divider";
 import { Dropdown } from "primereact/dropdown";
+import { InputText } from "primereact/inputtext";
 import { InputNumber } from "primereact/inputnumber";
 import { Toast } from "primereact/toast";
+
 import ContextoUsuário from "../../contextos/contexto-usuário";
 import {
-  serviçoCadastrarMaestro,
-  serviçoBuscarMaestro,
-} from "../../serviços/serviços-maestro";
+  serviçoCadastrarCriador,
+  serviçoBuscarCriador,
+} from "../../serviços/serviços-criador";
 import mostrarToast from "../../utilitários/mostrar-toast";
 import {
   MostrarMensagemErro,
@@ -24,34 +27,23 @@ import {
   estilizarDivCampo,
   estilizarDivider,
   estilizarDropdown,
-  estilizarFlex,
+  estilizarCardCriador,
   estilizarInlineFlex,
   estilizarInputNumber,
   estilizarLabel,
 } from "../../utilitários/estilos";
 
-export default function CadastrarMaestro() {
+export default function CadastrarCriador() {
   const referênciaToast = useRef(null);
   const { usuárioLogado, setUsuárioLogado } = useContext(ContextoUsuário);
   const [dados, setDados] = useState({
-    titulação: "",
-    anos_experiência: "",
+    pais_origem: "",
+    ano_fundação: "",
+    estilo_cerveja_especializado: "",
   });
   const [erros, setErros] = useState({});
   const [cpfExistente, setCpfExistente] = useState(false);
   const navegar = useNavigate();
-
-  const opçõesTitulação = [
-    { label: "Mestrado", value: "mestrado" },
-    { label: "Doutorado", value: "doutorado" },
-  ];
-
-  const opçõesEspecialidade = [
-    { label: "Clássico", value: "clássico" },
-    { label: "Jazz", value: "jazz" },
-    { label: "Pop", value: "pop" },
-    { label: "Contemporâneo", value: "contemporaneo" },
-  ];
 
   function alterarEstado(event) {
     const chave = event.target.name || event.value;
@@ -67,19 +59,19 @@ export default function CadastrarMaestro() {
   }
 
   function títuloFormulário() {
-    if (usuárioLogado?.cadastrado) return "Consultar Maestro";
-    else return "Cadastrar Maestro";
+    if (usuárioLogado?.cadastrado) return "Consultar Criador";
+    else return "Cadastrar Criador";
   }
 
-  async function cadastrarMaestro() {
+  async function cadastrarCriador() {
     if (validarCampos()) {
       try {
-        const response = await serviçoCadastrarMaestro({
+        const response = await serviçoCadastrarCriador({
           ...dados,
           usuário_info: usuárioLogado,
-          titulação: dados.titulação,
-          anos_experiência: dados.anos_experiência,
-          especialidade: dados.especialidade,
+          pais_origem: dados.pais_origem,
+          ano_fundação: dados.ano_fundação,
+          estilo_cerveja_especializado: dados.estilo_cerveja_especializado,
         });
 
         if (response.data)
@@ -91,7 +83,7 @@ export default function CadastrarMaestro() {
 
         mostrarToast(
           referênciaToast,
-          "Maestro cadastrado com sucesso!",
+          "Criador cadastrado com sucesso!",
           "sucesso"
         );
       } catch (error) {
@@ -107,7 +99,7 @@ export default function CadastrarMaestro() {
   }
 
   function açãoBotãoSalvar() {
-    if (!usuárioLogado?.cadastrado) cadastrarMaestro();
+    if (!usuárioLogado?.cadastrado) cadastrarCriador();
   }
 
   function redirecionar() {
@@ -125,15 +117,15 @@ export default function CadastrarMaestro() {
 
   useEffect(() => {
     let desmontado = false;
-    async function buscarDadosMaestro() {
+    async function buscarDadosCriador() {
       try {
-        const response = await serviçoBuscarMaestro(usuárioLogado.cpf);
+        const response = await serviçoBuscarCriador(usuárioLogado.cpf);
         if (!desmontado && response.data) {
           setDados((dados) => ({
             ...dados,
-            titulação: response.data.titulação,
-            anos_experiência: response.data.anos_experiência,
-            especialidade: response.data.especialidade,
+            pais_origem: response.data.pais_origem,
+            ano_fundação: response.data.ano_fundação,
+            estilo_cerveja_especializado: response.data.estilo_cerveja_especializado,
           }));
         }
       } catch (error) {
@@ -142,12 +134,12 @@ export default function CadastrarMaestro() {
       }
     }
 
-    if (usuárioLogado?.cadastrado) buscarDadosMaestro();
+    if (usuárioLogado?.cadastrado) buscarDadosCriador();
     return () => (desmontado = true);
   }, [usuárioLogado?.cadastrado, usuárioLogado.cpf]);
 
   return (
-    <div className={estilizarFlex()}>
+    <div className={estilizarCardCriador()} style={{ justifyContent: "center" }}>
       <Toast
         ref={referênciaToast}
         onHide={redirecionar}
@@ -155,56 +147,62 @@ export default function CadastrarMaestro() {
       />
       <Card
         title={títuloFormulário()}
-        className={estilizarCard(usuárioLogado.cor_tema)}
+        className="my_card_criador"
       >
-        <div className={estilizarDivCampo()}>
-          <label className={estilizarLabel(usuárioLogado.cor_tema)}>
-            Titulação*:
+        <div className="flex mb-5" style={{ flexDirection: "column" }}>
+          <label className={`mb-1 font-bold ${estilizarLabel(usuárioLogado.cor_tema)}`}>
+            País Origem*:
           </label>
-          <Dropdown
-            name="titulação"
-            className={estilizarDropdown(
-              erros.titulação,
+          <InputText
+            name="pais_origem"
+            className={`border rounded px-2 py-1 ${estilizarDropdown(
+              erros.pais_origem,
               usuárioLogado.cor_tema
-            )}
-            value={dados.titulação}
-            options={opçõesTitulação}
+            )}`}
+            style={{ height: "35px" }}
+            value={dados.pais_origem}
             onChange={alterarEstado}
-            placeholder="-- Selecione --"
           />
-          {/* criar o dropdown da especialidade também */}
-          <Dropdown
-            name="especialidade"
-            className={estilizarDropdown(
-              erros.especialidade,
-              usuárioLogado.cor_tema
-            )}
-            value={dados.especialidade}
-            options={opçõesEspecialidade}
-            onChange={alterarEstado}
-            placeholder="-- Selecione --"
-          />
-          <MostrarMensagemErro mensagem={erros.titulação} />
         </div>
-        <div className={estilizarDivCampo()}>
-          <label className={estilizarLabel(usuárioLogado.cor_tema)}>
-            Anos de Experiência Empresarial*:
+        <div className="flex mb-5" style={{ flexDirection: "column" }}>
+          <label className={`mb-1 font-bold ${estilizarLabel(usuárioLogado.cor_tema)}`}>
+            Anos de Fundação*:
           </label>
           <InputNumber
-            name="anos_experiência"
+            name="ano_fundação"
             size={5}
-            value={dados.anos_experiência}
+            value={dados.ano_fundação}
             onValueChange={alterarEstado}
             mode="decimal"
+            className="border rounded py-1"
             inputClassName={estilizarInputNumber(
-              erros.anos_experiência,
+              erros.ano_fundação,
               usuárioLogado.cor_tema
             )}
+            style={{ height: "35px" }}
+            placeholder="Ano Fundação"
           />
-          <MostrarMensagemErro mensagem={erros.anos_experiência} />
+          <MostrarMensagemErro mensagem={erros.ano_fundação} />
+        </div>
+        <div className="flex mb-5" style={{ flexDirection: "column" }}>
+          <label className={`mb-1 font-bold ${estilizarLabel(usuárioLogado.cor_tema)}`}>
+            Estilo Cerveja Especializado*:
+          </label>
+          <InputText
+            name="estilo_cerveja_especializado"
+            className={`border rounded px-2 py-1 ${estilizarInputNumber(
+              erros.estilo_cerveja_especializado,
+              usuárioLogado.cor_tema
+            )}`}
+            style={{ height: "35px" }}
+            value={dados.estilo_cerveja_especializado}
+            onChange={alterarEstado}
+            placeholder="Estilo Cerveja Especializado"
+          />
+          <MostrarMensagemErro mensagem={erros.estilo_cerveja_especializado} />
         </div>
         <Divider className={estilizarDivider(dados.cor_tema)} />
-        <div className={estilizarInlineFlex()}>
+        <div className={`mt-4 mb-2 ${estilizarInlineFlex()}`}>
           <Button
             className={estilizarBotãoRetornar()}
             label="Retornar"

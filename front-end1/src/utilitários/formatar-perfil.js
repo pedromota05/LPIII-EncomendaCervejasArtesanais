@@ -1,9 +1,9 @@
 export default function formatarPerfil(perfil) {
   switch (perfil) {
-    case "maestro":
-      return "Maestro";
-    case "empresário":
-      return "Empresário";
+    case "criador":
+      return "Criador";
+    case "empório":
+      return "Empório";
     default:
       return;
   }

@@ -14,10 +14,9 @@ export const opçõesCores = [
 export const TAMANHOS = { CPF: 13, SENHA: 15 };
 export const TEMA_PADRÃO = "bluegray";
 
-export function estilizarBotão() {
-  const cor_botão = "green";
+export function estilizarBotão(cor_tema) {
   return `p-button-sm h-2rem text-base w-auto md:w-min mr-2
-bg-${cor_botão}-600 border-${cor_botão}-800 shadow-6`;
+bg-${cor_tema}-600 border-none shadow-6`;
 }
 
 export function estilizarBotãoRemover() {
@@ -33,11 +32,11 @@ bg-${cor_botão}-600 border-${cor_botão}-800 shadow-6`;
 }
 
 export function estilizarCard(cor_tema) {
-  return `w-10 lg:w-auto overflow-auto pt-2 pb-3 m-4 text-${cor_tema}-700 border-2 shadow-8`;
+  return `w-card-user overflow-auto pt-2 pb-3 m-4 text-${cor_tema}-700 border-2 shadow-8 card-cadastro`;
 }
 
 export function estilizarCardHeaderCentralizado() {
-  return "flex justify-content-center font-bold text-2xl mb-2";
+  return "flex justify-content-center font-bold text-2xl mb-3";
 }
 
 export function estilizarColuna() {
@@ -56,8 +55,12 @@ export function estilizarDivCampo() {
   return "mb-3 flex flex-column sm:align-items-start md:flex-row md:align-items-center";
 }
 
+export function estilizarDivCampoLimpar() {
+  return "mb-5 flex flex-column sm:align-items-start md:flex-row md:align-items-center";
+}
+
 export function estilizarDivider(cor_tema = TEMA_PADRÃO) {
-  return `mt-5 mb-3 border-1 border-${cor_tema}-800`;
+  return `mt-3 mb-3 border-1 border-${cor_tema}-800`;
 }
 
 export function estilizarDropdown(erro, cor_tema) {
@@ -71,7 +74,11 @@ export function estilizarErro() {
 }
 
 export function estilizarFlex(alinhamento = "start") {
-  return `flex flex-column align-items-${alinhamento}`;
+  return `flex flex-column align-items-${alinhamento} `;
+}
+
+export function estilizarCardCriador(alinhamento = "center") {
+  return `flex align-items-${alinhamento} h-screen`;
 }
 
 export function estilizarFooterDialog() {
@@ -79,11 +86,11 @@ export function estilizarFooterDialog() {
 }
 
 export function estilizarGridColunaSidebar() {
-  return "lg:col-fixed lg:w-15rem shadow-6";
+  return "lg:col-fixed lg:w-22rem shadow-6 p-3";
 }
 
 export function estilizarGridSidebar(cor_tema) {
-  return `lg:grid-nogutter lg:flex bg-${cor_tema}-100 h-screen`;
+  return `lg:grid-nogutter lg:flex bg-${cor_tema}-100 h-auto`;
 }
 
 export function estilizarInlineFlex() {
@@ -113,7 +120,7 @@ export function estilizarInputText(
 }
 
 export function estilizarLabel(cor_tema = TEMA_PADRÃO) {
-  return `w-auto text-md mr-4 md:text-base text-${cor_tema}-700 font-bold`;
+  return `w-auto text-md mr-3 md:text-base text-${cor_tema}-700 font-bold`;
 }
 
 export function estilizarLink(cor_tema) {
@@ -121,7 +128,7 @@ export function estilizarLink(cor_tema) {
 }
 
 export function estilizarLogo() {
-  return `text-center text-2xl md:text-2xl mb-6 text-${TEMA_PADRÃO}-700`;
+  return `text-center text-2xl md:text-2xl mb-5 text-${TEMA_PADRÃO}-700`;
 }
 
 export function estilizarMenu() {
@@ -129,12 +136,12 @@ export function estilizarMenu() {
 }
 
 export function estilizarMenuLateralDesktop(cor_tema) {
-  return `w-15rem p-2 flex flex-column align-items-center h-screen fixed
+  return `w-15rem p-2 flex flex-column align-items-center fixed
     surface-50 bg-${cor_tema}-100 text-${cor_tema}-800`;
 }
 
 export function estilizarMenuLateralMobile(cor_tema) {
-  return `w-full p-2 surface-50 bg-${cor_tema}-100 text-${cor_tema}-800`;
+  return `w-full surface-50 bg-${cor_tema}-100 text-${cor_tema}-800`;
 }
 
 export function estilizarModal() {
@@ -144,7 +151,7 @@ export function estilizarPáginaÚnica() {
   return "flex flex-column align-items-center justify-content-center h-screen";
 }
 export function estilizarPasswordInput() {
-  return `w-auto mr-2 mt-2 lg:mt-0`;
+  return `w-100 mr-2 mt-2 lg:mt-0`;
 }
 export function estilizarPasswordTextInputBorder(erro, cor_tema = TEMA_PADRÃO) {
   let cor_borda = `border-${cor_tema}-800`;
@@ -152,9 +159,8 @@ export function estilizarPasswordTextInputBorder(erro, cor_tema = TEMA_PADRÃO) 
   return cor_borda;
 }
 export function estilizarSidebar() {
-  return "w-15rem";
+  return "w-22rem";
 }
-
 export function estilizarSubtítulo(cor_tema) {
   return `font-bold text-base align-self-start lg:mt-0 text-${cor_tema}-500`;
 }

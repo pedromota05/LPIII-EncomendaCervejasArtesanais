@@ -1,8 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+
 import { Button } from "primereact/button";
 import { Menu } from "primereact/menu";
 import { Sidebar } from "primereact/sidebar";
+import { Dropdown } from "primereact/dropdown";
+
 import ContextoUsuário from "../contextos/contexto-usuário";
 import formatarPerfil from "../utilitários/formatar-perfil";
 import {
@@ -24,27 +27,48 @@ export default function MenuLateral({ children }) {
   const [visible, setVisible] = useState(false);
   const tamanhoDesktop = windowWidth > 991;
   const navegar = useNavigate();
+  const location = useLocation();
 
-  const opçõesMaestro = [
-    { label: "Página Inicial", command: () => navegar("/pagina-inicial") },
+  const opçõesCriador = [
+    {
+      label: (
+        <>
+          <i className="pi pi-home" style={{ marginRight: 8 }} />
+          Página Inicial
+        </>
+      ),
+      command: () => navegar("/pagina-inicial"),
+    },
     {
       label: "Menu",
       items: [
         {
-          label: "Cadastrar Usuário",
+          label: (
+            <div style={{ paddingLeft: '25px' }}>
+              <i className="pi pi-user" style={{ marginRight: 8 }} />
+              Cadastrar Usuário
+            </div>
+          ),
           command: () => navegar("/atualizar-usuario"),
           disabled: usuárioLogado.status !== "ativo",
         },
         {
-          label: "Cadastrar Maestro",
-          command: () => navegar("/cadastrar-maestro"),
+          label: (
+            <div style={{ paddingLeft: '25px' }}>
+              <i className="pi pi-briefcase" style={{ marginRight: 8 }} />
+              Cadastrar Criador
+            </div>
+          ),
+          command: () => navegar("/cadastrar-criador"),
         },
-        { label: "Sair do Sistema", command: () => sairSistema() },
       ],
+    },
+    {label: (<><i className="pi pi-sign-out" style={{ marginRight: 8 }} /> Sair do Sistema</>),
+      command: () => sairSistema(),
     },
   ];
 
-  const opçõesEmpresário = [];
+  const opçõesEmpório = [];
   function sairSistema() {
     setUsuárioLogado({});
     navegar("/");
@@ -52,12 +76,9 @@ export default function MenuLateral({ children }) {
 
   function opçõesMenu() {
     switch (usuárioLogado.perfil) {
-      case "maestro":
-        return opçõesMaestro;
-      case "empresário":
-        return opçõesEmpresário;
-      default:
-        return;
+      case "criador": return opçõesCriador;
+      case "empório": return opçõesEmpório;
+      default: return;
     }
   }
 
@@ -68,7 +89,7 @@ export default function MenuLateral({ children }) {
   function MenuServiços() {
     if (tamanhoDesktop) {
       return (
-        <div className={estilizarMenuLateralDesktop(usuárioLogado?.cor_tema)}>
+        <div>
           <h1 className={estilizarTítulo(usuárioLogado?.cor_tema)}>
             {usuárioLogado?.nome}
           </h1>
@@ -81,19 +102,21 @@ export default function MenuLateral({ children }) {
     } else
       return (
         <>
-          <div className={estilizarMenuLateralMobile(usuárioLogado?.cor_tema)}>
+          <div className={estilizarMenuLateralMobile(usuárioLogado?.cor_tema)} style={{ height: "60px", display: "flex", alignItems: "center" }}>
             <Button
               className={estilizarBotão(usuárioLogado?.cor_tema)}
               icon="pi pi-bars"
               aria-label="Filter"
               onClick={() => setVisible(true)}
             />
-            <h1 className={estilizarTítulo(usuárioLogado?.cor_tema)}>
-              {usuárioLogado?.nome}
-            </h1>
-            <h2 className={estilizarSubtítulo(usuárioLogado?.cor_tema)}>
-              {formatarPerfil(usuárioLogado?.perfil)}
-            </h2>
+            <div style={{ marginLeft: "10px" }}>
+              <h1 className={`mt-3 ${estilizarTítulo(usuárioLogado?.cor_tema)}`}>
+                {usuárioLogado?.nome}
+              </h1>
+              <h2 className={estilizarSubtítulo(usuárioLogado?.cor_tema)} style={{ marginTop: "0" }}>
+                {formatarPerfil(usuárioLogado?.perfil)}
+              </h2>
+            </div>
           </div>
           <Sidebar
             className={estilizarSidebar()}
@@ -111,6 +134,26 @@ export default function MenuLateral({ children }) {
     window.addEventListener("resize", redimensionarJanela);
     return () => window.removeEventListener("resize", redimensionarJanela);
   }, []);
+
+  useEffect(() => {
+    const { pathname } = location;
+    const element = document.querySelector(".w-card-user");
+
+    if (pathname === "/pagina-inicial" || pathname === "/cadastrar-criador") {
+      document.body.style.overflowY = "hidden";
+    } else if (pathname === "/atualizar-usuario") {
+      document.body.style.overflowY = "auto";
+    } else {
+      document.body.style.overflowY = "auto";
+    }
+    if (element) {
+      if (pathname === "/atualizar-usuario") {
+        element.style.width = "90%"; // Define a largura diretamente
+      } else {
+        element.style.width = ""; // Reseta para o valor padrão do CSS
+      }
+    }
+  }, [location]);
 
   return (
     <div className={estilizarGridSidebar(usuárioLogado?.cor_tema)}>

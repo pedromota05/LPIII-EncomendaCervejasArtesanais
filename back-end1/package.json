@@ -27,6 +27,7 @@
     "mysql2": "^2.3.3",
     "node-cron": "^3.0.2",
     "pg": "^8.11.1",
+    "ptc-server": "file:",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.44"
   },

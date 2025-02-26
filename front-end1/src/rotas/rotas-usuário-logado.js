@@ -16,11 +16,6 @@ export default function RotasUsuáriosLogados() {
       return () => servidor.interceptors.request.eject(interceptadorNovo);
     }
   }, [usuárioLogado?.token]);
-  if (usuárioLogado?.perfil)
-    return (
-      <MenuLateral>
-        <Outlet />
-      </MenuLateral>
-    );
+  if (usuárioLogado?.perfil)  return <MenuLateral><Outlet /></MenuLateral>;
   else return <Navigate to="/" />;
 }

@@ -1,7 +1,9 @@
 import { useContext, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
+
 import ContextoUsuário from "../../contextos/contexto-usuário";
 import {
   estilizarBotão,
@@ -11,6 +13,7 @@ import {
   estilizarLabel,
   estilizarModal,
 } from "../../utilitários/estilos";
+
 export default function ModalConfirmaçãoUsuário() {
   const referênciaToast = useRef(null);
   const {
@@ -41,8 +44,8 @@ export default function ModalConfirmaçãoUsuário() {
   }
   function exibirPerfilFormatado() {
     switch (dados.perfil) {
-      case "maestro":
-        return "Maestro";
+      case "criador":
+        return "Criador";
       default:
         return "";
     }
@@ -56,10 +59,10 @@ export default function ModalConfirmaçãoUsuário() {
     }
   }
   function finalizarCadastro() {
-    if (dados.perfil === "maestro") {
+    if (dados.perfil === "criador") {
       setUsuárioLogado({ ...dados, cadastrado: false });
       setMostrarModalConfirmação(false);
-      navegar("../cadastrar-maestro");
+      navegar("../cadastrar-criador");
     }
   }
   function executarOperação() {

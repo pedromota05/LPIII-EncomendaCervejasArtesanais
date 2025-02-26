@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Card } from "primereact/card";
 import { Image } from "primereact/image";
 import ContextoUsuário from "../../contextos/contexto-usuário";
-import imge from "../../imagens/image.png";
+import img from "../../imagens/imagem-degustacao.png";
 import {
   estilizarCard,
   estilizarCardHeaderCentralizado,
@@ -13,18 +13,16 @@ export default function PáginaInicial() {
   function HeaderCentralizado() {
     return (
       <div className={estilizarCardHeaderCentralizado()}>
-        Propostas de Apresentações Musicais
+        Encomenda de Cervejas Artesanais
       </div>
     );
   }
   return (
-    <div className={estilizarPáginaÚnica()}>
-      <Card
-        header={HeaderCentralizado}
-        className={estilizarCard(usuárioLogado.cor_tema)}
-      >
-        <Image src={imge} alt="Venha fazer a diferença!" width={1100} />
-      </Card>
+    <div className={`image-responsive ${estilizarPáginaÚnica()}`}>
+      <div className={estilizarCardHeaderCentralizado()}>
+        Encomenda de Cervejas Artesanais
+      </div>
+      <Image src={img} alt="Venha fazer a diferença!" width="400" />
     </div>
   );
 }

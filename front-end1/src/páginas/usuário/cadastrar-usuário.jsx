@@ -1,5 +1,6 @@
 import { useContext, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import { Dialog } from "primereact/dialog";
@@ -9,6 +10,7 @@ import { InputMask } from "primereact/inputmask";
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import { Toast } from "primereact/toast";
+
 import ContextoUsuário from "../../contextos/contexto-usuário";
 import ModalConfirmaçãoUsuário from "../../componentes/modais/modal-confirmação-usuário";
 import mostrarToast from "../../utilitários/mostrar-toast";
@@ -31,6 +33,7 @@ import {
   estilizarDialog,
   estilizarDivBotõesAção,
   estilizarDivCampo,
+  estilizarDivCampoLimpar,
   estilizarDivider,
   estilizarDropdown,
   estilizarFlex,
@@ -44,7 +47,6 @@ import {
   estilizarSubtítulo,
   opçõesCores,
 } from "../../utilitários/estilos";
-
 import { serviçoVerificarCpfExistente } from "../../serviços/serviços-usuário";
 
 export default function CadastrarUsuário() {
@@ -71,8 +73,8 @@ export default function CadastrarUsuário() {
   const [erros, setErros] = useState({});
 
   const opçõesPerfis = [
-    { label: "Maestro", value: "maestro" },
-    { label: "Empresário", value: "empresário" },
+    { label: "Criador", value: "criador" },
+    { label: "Empório", value: "emporio" },
   ];
 
   function alterarEstado(event) {
@@ -200,7 +202,7 @@ export default function CadastrarUsuário() {
     if (!usuárioLogado?.perfil) {
       return (
         <Button
-          className={estilizarBotão(dados.cor_tema)}
+          className="button-confirmacao-cadastro"
           label="Salvar"
           onClick={validarConfirmarCriação}
         />
@@ -234,7 +236,7 @@ export default function CadastrarUsuário() {
         className={estilizarCard(dados.cor_tema)}
       >
         <div className={estilizarDivCampo()}>
-          <label className={estilizarLabel(dados.cor_tema)}>
+          <label className={`margin-responsive ${estilizarLabel(dados.cor_tema)}`}>
             Tipo de Perfil*:
           </label>
           <Dropdown
@@ -243,6 +245,7 @@ export default function CadastrarUsuário() {
             value={dados.perfil}
             options={opçõesPerfis}
             onChange={alterarEstado}
+            style={{ height: "32px" }}
             placeholder="-- Selecione --"
             disabled={usuárioLogado?.perfil}
           />
@@ -250,48 +253,52 @@ export default function CadastrarUsuário() {
         </div>
         <Divider className={estilizarDivider(dados.cor_tema)} />
         <h2 className={estilizarSubtítulo(dados.cor_tema)}>Dados Pessoais</h2>
-        <div className={estilizarDivCampo()}>
-          <label className={estilizarLabel(dados.cor_tema)}>CPF*:</label>
-          <InputMask
-            name="cpf"
-            autoClear
-            className={estilizarInputMask(erros.cpf, dados.cor_tema)}
-            mask={CPF_MÁSCARA}
-            size={TAMANHOS.CPF}
-            value={dados.cpf}
-            onChange={alterarEstado}
-            disabled={usuárioLogado?.perfil}
-          />
-          <MostrarMensagemErro mensagem={erros.cpf} />
+        <div className="input-container">
+          <div className="input-field">
+            <label className={`margin-responsive ${estilizarLabel(dados.cor_tema)}`}>CPF*:</label>
+            <InputMask
+              name="cpf"
+              autoClear
+              className={estilizarInputMask(erros.cpf, dados.cor_tema)}
+              mask={CPF_MÁSCARA}
+              size={TAMANHOS.CPF}
+              value={dados.cpf}
+              onChange={alterarEstado}
+              disabled={usuárioLogado?.perfil}
+              style={{ height: "32px", width: "100%" }}
+            />
+            <MostrarMensagemErro mensagem={erros.cpf} />
+          </div>
+          <div className="input-field margin-cadastrar-mobile">
+            <label className={`margin-responsive ${estilizarLabel(dados.cor_tema)}`}>Email*:</label>
+            <InputText
+              name="email"
+              className={estilizarInputText(erros.email, 400, dados.cor_tema)}
+              value={dados.email}
+              onChange={alterarEstado}
+              style={{ height: "32px", width: "100%" }}
+            />
+            <MostrarMensagemErro mensagem={erros.email} />
+          </div>
         </div>
-        <div className={estilizarDivCampo()}>
-          <label className={estilizarLabel(dados.cor_tema)}>
+        <div className={`mt-3 ${estilizarDivCampo()}`}>
+          <label className={`margin-responsive ${estilizarLabel(dados.cor_tema)}`}>
             Nome Completo*:
           </label>
           <InputText
             name="nome"
-            className={estilizarInputText(erros.nome, 400, dados.cor_tema)}
+            className={`input-width-mobile ${estilizarInputText(erros.nome, 400, dados.cor_tema)}`}
             value={dados.nome}
             onChange={alterarEstado}
             disabled={usuárioLogado?.perfil}
+            style={{ height: "32px" }}
           />
           <MostrarMensagemErro mensagem={erros.nome} />
-        </div>
-        <div className={estilizarDivCampo()}>
-          <label className={estilizarLabel(dados.cor_tema)}>Email*:</label>
-          <InputText
-            name="email"
-            className={estilizarInputText(erros.email, 400, dados.cor_tema)}
-            value={dados.email}
-            onChange={alterarEstado}
-          />
-
-          <MostrarMensagemErro mensagem={erros.email} />
         </div>
         <Divider className={estilizarDivider(dados.cor_tema)} />
         <h2 className={estilizarSubtítulo(dados.cor_tema)}>Dados de Login</h2>
         <div className={estilizarDivCampo()}>
-          <label className={estilizarLabel(dados.cor_tema)}>
+          <label className={`margin-responsive ${estilizarLabel(dados.cor_tema)}`}>
             Senha e Confirmação*:
           </label>
           <Password
@@ -300,11 +307,12 @@ export default function CadastrarUsuário() {
               erros.senha,
               dados.cor_tema
             )}
-            className={estilizarPasswordInput(erros.senha)}
+            className={`${estilizarPasswordInput(erros.senha)}`}
             toggleMask
             value={dados.senha}
             onChange={alterarEstado}
             size={TAMANHOS.SENHA}
+            style={{ height: "32px" }}
             tooltip={
               usuárioLogado?.token &&
               "Será alterada somente se a senha e a confirmação forem informadas."
@@ -314,11 +322,12 @@ export default function CadastrarUsuário() {
             name="confirmação"
             className={estilizarPasswordInput(dados.cor_tema)}
             toggleMask
-            inputClassName={estilizarPasswordTextInputBorder(
+            inputClassName={`${estilizarPasswordTextInputBorder(
               erros.senha || erros.confirmação_senha,
               dados.cor_tema
-            )}
+            )}`}
             size={TAMANHOS.SENHA}
+            style={{ height: "32px" }}
             feedback={false}
             value={dados.confirmação}
             onChange={alterarEstado}
@@ -331,38 +340,42 @@ export default function CadastrarUsuário() {
         <h2 className={estilizarSubtítulo(dados.cor_tema)}>
           Recuperação da conta
         </h2>
-        <div className={estilizarDivCampo()}>
-          <label className={estilizarLabel(dados.cor_tema)}>
-            Questão de Segurança*:
-          </label>
-          <InputText
-            name="questão"
-            className={estilizarInputText(erros.questão, 400, dados.cor_tema)}
-            placeholder="Ex: Qual era o nome do meu primeiro pet?"
-            value={dados.questão}
-            onChange={alterarEstado}
-            tooltipOptions={{ position: "top" }}
-            tooltip={
-              usuárioLogado?.token &&
-              "Se a resposta não for informada: a alteração de questão será ignorada."
-            }
-          />
-          <MostrarMensagemErro mensagem={erros.questão} />
-        </div>
-        <div className={estilizarDivCampo()}>
-          <label className={estilizarLabel(dados.cor_tema)}>Resposta*:</label>
-          <InputText
-            name="resposta"
-            className={estilizarInputText(erros.resposta, 400, dados.cor_tema)}
-            value={dados.resposta}
-            onChange={alterarEstado}
-          />
-          <MostrarMensagemErro mensagem={erros.resposta} />
+        <div className="input-container">
+          <div className="input-field">
+            <label className={`margin-responsive ${estilizarLabel(dados.cor_tema)}`}>
+              Questão de Segurança*:
+            </label>
+            <InputText
+              name="questão"
+              className={estilizarInputText(erros.questão, 400, dados.cor_tema)}
+              placeholder="Ex: Qual era o nome do meu primeiro pet?"
+              value={dados.questão}
+              onChange={alterarEstado}
+              style={{ height: "32px", width: "100%" }}
+              tooltipOptions={{ position: "top" }}
+              tooltip={
+                usuárioLogado?.token &&
+                "Se a resposta não for informada: a alteração de questão será ignorada."
+              }
+            />
+            <MostrarMensagemErro mensagem={erros.questão} />
+          </div>
+          <div className="input-field margin-cadastrar-mobile">
+            <label className={`margin-responsive ${estilizarLabel(dados.cor_tema)}`}>Resposta*:</label>
+            <InputText
+              name="resposta"
+              className={estilizarInputText(erros.resposta, 400, dados.cor_tema)}
+              value={dados.resposta}
+              onChange={alterarEstado}
+              style={{ height: "32px", width: "100%" }}
+            />
+            <MostrarMensagemErro mensagem={erros.resposta} />
+          </div>
         </div>
         <Divider className={estilizarDivider(dados.cor_tema)} />
         <h2 className={estilizarSubtítulo(dados.cor_tema)}>Configurações*: </h2>
-        <div className={estilizarDivCampo()}>
-          <label className={estilizarLabel(dados.cor_tema)}>
+        <div className={estilizarDivCampoLimpar()}>
+          <label className={`margin-responsive ${estilizarLabel(dados.cor_tema)}`}>
             Cor do Tema*:
           </label>
           <Dropdown
@@ -371,6 +384,7 @@ export default function CadastrarUsuário() {
             value={dados.cor_tema}
             options={opçõesCores}
             onChange={alterarEstado}
+            style={{ height: "32px" }}
             placeholder="-- Selecione --"
           />
           <MostrarMensagemErro mensagem={erros.cor_tema} />
