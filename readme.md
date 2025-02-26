@@ -1,57 +1,22 @@
-## Trabalho de LPIII
+## Trabalho de LPIII :computer:
 
-### Projeto: Propostas de Apresentações Musicais
+### Projeto: Encomenda de Cervejas Artesanais :beers:
 
-**Linguagem de Programação III – Guilherme Silva Sampaio**
+**Linguagem de Programação III – Pedro Henrique Gonçalves Mota**
 
 ### Título do Projeto
 
-Propostas Musicais para Eventos
+Encomenda de Cervejas Artesanais
 
 ### Entidades e Relacionamentos
 
 - **Usuário**
-  - Maestro (proponente)
-  - Empresário (interessado)
+  - Criador (proponente)
+  - Empório (interessado)
 - **Relacionamentos**
-  - Maestro [1:n] Proposta
-  - Empresário [1:n] Interesse
-  - Interesse : Empresário - Proposta
-
-### Entidades, Atributos e Referências
-
-- **Usuário**
-  - Atributos: cpf, nome, email, perfil, status, senha, questão, resposta, cor_tema
-  - Maestro: titulação, anos_experiência, especialidade, propostas, usuário
-  - Empresário: empresa, setor, telefone, interesses, usuário
-- **Proposta**
-  - Atributos: id, título, categoria, repertório, data_proposta, descrição, orçamento_estimado, maestro, interesses
-- **Interesse**
-  - Atributos: id, data_manifestação, justificativa, orçamento_disponível, proposta, empresário
-
-### Enumerados
-
-- **Usuário**
-  - Perfil: maestro, empresário
-  - Status: ativo, inativo, pendente
-  - Cores: amarelo, anil, azul, azul_piscina, cinza_escuro, laranja, rosa, roxo, verde, verde_azulado
-- **Maestro**
-  - Titulação: doutorado, mestrado
-  - Especialidade: clássico, jazz, pop, contemporâneo
-- **Empresário**
-  - Setor: eventos, publicidade, entretenimento
-- **Proposta**
-  - Categoria: concerto, show, festival
-  - Repertório: clássico, popular, misto
-
-### Filtros: Administrar e Pesquisar
-
-- **Maestro**
-  - Administrar Propostas: título, categoria, repertório, orçamento_estimado
-  - Pesquisar Interesses: nome_empresário, título_proposta, categoria_proposta, orçamento_disponível
-- **Empresário**
-  - Administrar Interesses: nome_maestro, categoria_proposta, título_proposta, orçamento_estimado
-  - Pesquisar Propostas: nome_maestro, título, categoria, repertório, orçamento_estimado
+  - Criador [1:n] CervejaArtesanal
+  - Empório [1:n] Encomenda
+  - Encomenda : Empório - CervejaArtesanal
 
 ## Rodar o projeto
 
