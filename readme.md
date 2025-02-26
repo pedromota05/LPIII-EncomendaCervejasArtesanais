@@ -1,12 +1,8 @@
-## Trabalho de LPIII :computer:
+<h1 align="center">:computer: Trabalho de LPIII :computer:</h1>
 
-### Projeto: Encomenda de Cervejas Artesanais :beers:
+<h4 align="center">:beers: Projeto: Encomenda de Cervejas Artesanais :beers:</h4>
 
 **Linguagem de Programação III – Pedro Henrique Gonçalves Mota**
-
-### Título do Projeto
-
-Encomenda de Cervejas Artesanais
 
 ### Entidades e Relacionamentos
 
