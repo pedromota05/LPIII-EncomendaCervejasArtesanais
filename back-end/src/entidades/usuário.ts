@@ -33,7 +33,6 @@ export enum Cores {
   VERDE = "green",
   VERDE_AZULADO = "teal",
 }
-// falta ver se os atributos estão certros
 
 @Entity()
 export default class Usuário extends BaseEntity {

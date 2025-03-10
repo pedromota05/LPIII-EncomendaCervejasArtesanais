@@ -31,8 +31,12 @@ export function estilizarBotãoRetornar() {
 bg-${cor_botão}-600 border-${cor_botão}-800 shadow-6`;
 }
 
+export function estilizarCardHome(cor_tema) {
+  return `w-card-user overflow-auto pt-3 pb-3 text-${cor_tema}-700 border-2 shadow-8`;
+}
+
 export function estilizarCard(cor_tema) {
-  return `w-card-user overflow-auto pt-2 pb-3 m-4 text-${cor_tema}-700 border-2 shadow-8 card-cadastro`;
+  return `w-card-user overflow-auto pt-2 pb-3 m-5 text-${cor_tema}-700 border-2 shadow-8 card-cadastro`;
 }
 
 export function estilizarCardHeaderCentralizado() {
@@ -40,7 +44,7 @@ export function estilizarCardHeaderCentralizado() {
 }
 
 export function estilizarColuna() {
-  return "col";
+  return "col center-card-mobile";
 }
 
 export function estilizarDialog() {
@@ -86,7 +90,7 @@ export function estilizarFooterDialog() {
 }
 
 export function estilizarGridColunaSidebar() {
-  return "lg:col-fixed lg:w-22rem shadow-6 p-3";
+  return "lg:col-fixed lg:max-w-22rem shadow-6 p-3";
 }
 
 export function estilizarGridSidebar(cor_tema) {
@@ -159,7 +163,7 @@ export function estilizarPasswordTextInputBorder(erro, cor_tema = TEMA_PADRÃO) 
   return cor_borda;
 }
 export function estilizarSidebar() {
-  return "w-22rem";
+  return "max-w-22rem";
 }
 export function estilizarSubtítulo(cor_tema) {
   return `font-bold text-base align-self-start lg:mt-0 text-${cor_tema}-500`;

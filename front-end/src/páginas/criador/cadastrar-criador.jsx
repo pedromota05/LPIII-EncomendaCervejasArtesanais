@@ -166,7 +166,7 @@ export default function CadastrarCriador() {
         </div>
         <div className="flex mb-5" style={{ flexDirection: "column" }}>
           <label className={`mb-1 font-bold ${estilizarLabel(usuárioLogado.cor_tema)}`}>
-            Anos de Fundação*:
+            Ano de Fundação*:
           </label>
           <InputNumber
             name="ano_fundação"

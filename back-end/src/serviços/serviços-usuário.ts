@@ -84,6 +84,8 @@ export default class ServiçosUsuário {
   static async cadastrarUsuário(usuário_informado) {
     try {
       const { cpf, nome, perfil, email, senha, questão, resposta, cor_tema } = usuário_informado;
+      console.log("ServiçosUsuário.cadastrarUsuário:nome -- " + nome);
+      console.log(JSON.parse(JSON.stringify(usuário_informado)));
       const cpf_encriptado = md5(cpf);
       const senha_encriptada = await bcrypt.hash(senha, SALT);
       const resposta_encriptada = await bcrypt.hash(resposta, SALT);

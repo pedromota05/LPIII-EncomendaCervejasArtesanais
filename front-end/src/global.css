@@ -26,7 +26,7 @@ a {
   height: 16px;
 } /* Alterar altura dos botões + e - do inputnumber */
 .p-dropdown-label {
-  padding: 3px 10px;
+  padding: 5px 10px;
 } /* Padding do dropdown */
 /* Margem abaixo do título do card */
 .p-card-title {
@@ -193,18 +193,27 @@ td {
   width: 100%;
 }
 .margin-responsive {
+  font-size: 0.85rem !important;
+}
+.text-base {
   font-size: 0.9rem !important;
 }
 .p-input-icon-right > .p-inputtext {
   width: 100%;
 }
-.w-card-user {
-  width: 60%
+/* .w-card-user {
+  width: 50%
+} */
+.p-inputtext {
+  font-size: 0.9rem !important;
 }
 /*  */
 @media (max-width: 992px) {
   .image-responsive {
     margin-top: -60px;
+  }
+  .w-card-user {
+    width: 85%;
   }
 }
 @media (max-width: 768px) {
@@ -226,9 +235,6 @@ td {
   }
   .input-width-mobile {
     width: 100% !important;
-  }
-  .w-card-user {
-    width: 85%;
   }
 }
 @media (max-width: 576px) {

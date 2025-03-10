@@ -1,6 +1,6 @@
 <h1 align="center">:computer: Trabalho de LPIII :computer:</h1>
 
-<h4 align="center">:beers: Projeto: Encomenda de Cervejas Artesanais :beers:</h4>
+<h3 align="center">:beers: Projeto: Encomenda de Cervejas Artesanais :beers:</h3>
 
 **Linguagem de Programação III – Pedro Henrique Gonçalves Mota**
 

@@ -44,7 +44,7 @@ export default function MenuLateral({ children }) {
       items: [
         {
           label: (
-            <div style={{ paddingLeft: '25px' }}>
+            <div style={{ paddingLeft: '20px' }}>
               <i className="pi pi-user" style={{ marginRight: 8 }} />
               Cadastrar Usuário
             </div>
@@ -54,7 +54,7 @@ export default function MenuLateral({ children }) {
         },
         {
           label: (
-            <div style={{ paddingLeft: '25px' }}>
+            <div style={{ paddingLeft: '20px' }}>
               <i className="pi pi-briefcase" style={{ marginRight: 8 }} />
               Cadastrar Criador
             </div>
@@ -141,16 +141,16 @@ export default function MenuLateral({ children }) {
 
     if (pathname === "/pagina-inicial" || pathname === "/cadastrar-criador") {
       document.body.style.overflowY = "hidden";
-    } else if (pathname === "/atualizar-usuario") {
+    } else if (pathname === "/atualizar-usuario" || pathname === "/criar-usuario") {
       document.body.style.overflowY = "auto";
     } else {
       document.body.style.overflowY = "auto";
     }
     if (element) {
       if (pathname === "/atualizar-usuario") {
-        element.style.width = "90%"; // Define a largura diretamente
+        element.style.width = "70%";
       } else {
-        element.style.width = ""; // Reseta para o valor padrão do CSS
+        element.style.width = "";
       }
     }
   }, [location]);

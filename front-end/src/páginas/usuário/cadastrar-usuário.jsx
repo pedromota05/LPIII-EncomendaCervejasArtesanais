@@ -245,7 +245,6 @@ export default function CadastrarUsuário() {
             value={dados.perfil}
             options={opçõesPerfis}
             onChange={alterarEstado}
-            style={{ height: "32px" }}
             placeholder="-- Selecione --"
             disabled={usuárioLogado?.perfil}
           />
@@ -265,7 +264,7 @@ export default function CadastrarUsuário() {
               value={dados.cpf}
               onChange={alterarEstado}
               disabled={usuárioLogado?.perfil}
-              style={{ height: "32px", width: "100%" }}
+              style={{ height: "30px", width: "100%" }}
             />
             <MostrarMensagemErro mensagem={erros.cpf} />
           </div>
@@ -276,7 +275,7 @@ export default function CadastrarUsuário() {
               className={estilizarInputText(erros.email, 400, dados.cor_tema)}
               value={dados.email}
               onChange={alterarEstado}
-              style={{ height: "32px", width: "100%" }}
+              style={{ height: "30px", width: "100%" }}
             />
             <MostrarMensagemErro mensagem={erros.email} />
           </div>
@@ -291,7 +290,7 @@ export default function CadastrarUsuário() {
             value={dados.nome}
             onChange={alterarEstado}
             disabled={usuárioLogado?.perfil}
-            style={{ height: "32px" }}
+            style={{ height: "30px" }}
           />
           <MostrarMensagemErro mensagem={erros.nome} />
         </div>
@@ -312,7 +311,7 @@ export default function CadastrarUsuário() {
             value={dados.senha}
             onChange={alterarEstado}
             size={TAMANHOS.SENHA}
-            style={{ height: "32px" }}
+            style={{ height: "30px" }}
             tooltip={
               usuárioLogado?.token &&
               "Será alterada somente se a senha e a confirmação forem informadas."
@@ -327,7 +326,7 @@ export default function CadastrarUsuário() {
               dados.cor_tema
             )}`}
             size={TAMANHOS.SENHA}
-            style={{ height: "32px" }}
+            style={{ height: "30px" }}
             feedback={false}
             value={dados.confirmação}
             onChange={alterarEstado}
@@ -351,7 +350,7 @@ export default function CadastrarUsuário() {
               placeholder="Ex: Qual era o nome do meu primeiro pet?"
               value={dados.questão}
               onChange={alterarEstado}
-              style={{ height: "32px", width: "100%" }}
+              style={{ height: "30px", width: "100%" }}
               tooltipOptions={{ position: "top" }}
               tooltip={
                 usuárioLogado?.token &&
@@ -367,7 +366,7 @@ export default function CadastrarUsuário() {
               className={estilizarInputText(erros.resposta, 400, dados.cor_tema)}
               value={dados.resposta}
               onChange={alterarEstado}
-              style={{ height: "32px", width: "100%" }}
+              style={{ height: "30px", width: "100%" }}
             />
             <MostrarMensagemErro mensagem={erros.resposta} />
           </div>
@@ -384,7 +383,7 @@ export default function CadastrarUsuário() {
             value={dados.cor_tema}
             options={opçõesCores}
             onChange={alterarEstado}
-            style={{ height: "32px" }}
+            style={{ height: "30px" }}
             placeholder="-- Selecione --"
           />
           <MostrarMensagemErro mensagem={erros.cor_tema} />
