@@ -27,6 +27,21 @@ export default class ServiçosCriador {
       return response.status(500).json({ erro: error });
     }
   }
+
+  static async atualizarCriador(request, response) {
+    try {
+      const { cpf, pais_origem, ano_fundação, estilo_cerveja_especializado } = request.body;
+      const cpf_encriptado = md5(cpf);
+      await Criador.update(
+        { usuário: { cpf: cpf_encriptado } },
+        { pais_origem, ano_fundação, estilo_cerveja_especializado }
+      );
+      return response.json();
+    } catch (error) {
+      return response.status(500).json({ erro: "Erro BD : atualizarCriador" });
+    }
+  }
+
   static async buscarCriador(request, response) {
     try {
       const cpf_encriptado = md5(request.params.cpf);

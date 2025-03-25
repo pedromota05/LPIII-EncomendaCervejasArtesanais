@@ -13,6 +13,7 @@ import ContextoUsuário from "../../contextos/contexto-usuário";
 import {
   serviçoCadastrarCriador,
   serviçoBuscarCriador,
+  serviçoAtualizarCriador,
 } from "../../serviços/serviços-criador";
 import mostrarToast from "../../utilitários/mostrar-toast";
 import {
@@ -44,6 +45,12 @@ export default function CadastrarCriador() {
   const [erros, setErros] = useState({});
   const [cpfExistente, setCpfExistente] = useState(false);
   const navegar = useNavigate();
+  const opçõesEstiloCervejaEspecializado = [{ label: "American Pale Ale", value: "AmericanPaleAle"},
+    { label: "Weissbier", value: "weissbier" },
+    { label: "American IPA", value: "americanIPA" },
+    { label: "English Pale Ale", value: "englishPaleAle" },
+    { label: "Taison", value: "taison" },
+  ];
 
   function alterarEstado(event) {
     const chave = event.target.name || event.value;
@@ -60,7 +67,7 @@ export default function CadastrarCriador() {
 
   function títuloFormulário() {
     if (usuárioLogado?.cadastrado) return "Consultar Criador";
-    else return "Cadastrar Criador";
+    else return "Alterar Criador";
   }
 
   async function cadastrarCriador() {
@@ -93,13 +100,33 @@ export default function CadastrarCriador() {
     }
   }
 
+  async function atualizarCriador() {
+    if (validarCampos()) {
+      try {
+        const response = await serviçoAtualizarCriador({
+          ...dados,
+          cpf: usuárioLogado.cpf,
+        });
+        if (response)
+          mostrarToast(
+            referênciaToast,
+            "Criador atualizado com sucesso!",
+            "sucesso"
+          );
+      } catch (error) {
+        mostrarToast(referênciaToast, error.response.data.erro, "erro");
+      }
+    }
+  }
+
   function labelBotãoSalvar() {
-    if (usuárioLogado?.cadastrado) return "Consultar";
+    if (usuárioLogado?.cadastrado) return "Alterar";
     else return "Cadastrar";
   }
 
   function açãoBotãoSalvar() {
-    if (!usuárioLogado?.cadastrado) cadastrarCriador();
+    if (usuárioLogado?.cadastrado) atualizarCriador();
+    else cadastrarCriador();
   }
 
   function redirecionar() {
@@ -188,17 +215,10 @@ export default function CadastrarCriador() {
           <label className={`mb-1 font-bold ${estilizarLabel(usuárioLogado.cor_tema)}`}>
             Estilo Cerveja Especializado*:
           </label>
-          <InputText
-            name="estilo_cerveja_especializado"
-            className={`border rounded px-2 py-1 ${estilizarInputNumber(
-              erros.estilo_cerveja_especializado,
-              usuárioLogado.cor_tema
-            )}`}
-            style={{ height: "35px" }}
-            value={dados.estilo_cerveja_especializado}
-            onChange={alterarEstado}
-            placeholder="Estilo Cerveja Especializado"
-          />
+          <Dropdown name="estilo_cerveja_especializado"
+            className={estilizarDropdown(erros.estilo_cerveja_especializado, usuárioLogado.cor_tema)}
+            value={dados.estilo_cerveja_especializado} options={opçõesEstiloCervejaEspecializado} onChange={alterarEstado}
+            placeholder="-- Selecione --"/>
           <MostrarMensagemErro mensagem={erros.estilo_cerveja_especializado} />
         </div>
         <Divider className={estilizarDivider(dados.cor_tema)} />

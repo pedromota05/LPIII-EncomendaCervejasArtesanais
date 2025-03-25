@@ -1,11 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 import { Button } from "primereact/button";
 import { Menu } from "primereact/menu";
 import { Sidebar } from "primereact/sidebar";
 import { Dropdown } from "primereact/dropdown";
-
 import ContextoUsuário from "../contextos/contexto-usuário";
 import formatarPerfil from "../utilitários/formatar-perfil";
 import {
@@ -27,7 +25,6 @@ export default function MenuLateral({ children }) {
   const [visible, setVisible] = useState(false);
   const tamanhoDesktop = windowWidth > 991;
   const navegar = useNavigate();
-  const location = useLocation();
 
   const opçõesCriador = [
     {
@@ -44,7 +41,7 @@ export default function MenuLateral({ children }) {
       items: [
         {
           label: (
-            <div style={{ paddingLeft: '20px' }}>
+            <div style={{ paddingLeft: '16px' }}>
               <i className="pi pi-user" style={{ marginRight: 8 }} />
               Cadastrar Usuário
             </div>
@@ -54,7 +51,7 @@ export default function MenuLateral({ children }) {
         },
         {
           label: (
-            <div style={{ paddingLeft: '20px' }}>
+            <div style={{ paddingLeft: '16px' }}>
               <i className="pi pi-briefcase" style={{ marginRight: 8 }} />
               Cadastrar Criador
             </div>
@@ -68,45 +65,7 @@ export default function MenuLateral({ children }) {
     },
   ];
 
-  const opçõesGerenteEmpório = [
-    {
-      label: (
-        <>
-          <i className="pi pi-home" style={{ marginRight: 8 }} />
-          Página Inicial
-        </>
-      ),
-      command: () => navegar("/pagina-inicial"),
-    },
-    {
-      label: "Menu",
-      items: [
-        {
-          label: (
-            <div style={{ paddingLeft: '20px' }}>
-              <i className="pi pi-user" style={{ marginRight: 8 }} />
-              Cadastrar Usuário
-            </div>
-          ),
-          command: () => navegar("/atualizar-usuario"),
-          disabled: usuárioLogado.status !== "ativo",
-        },
-        {
-          label: (
-            <div style={{ paddingLeft: '20px' }}>
-              <i className="pi pi-briefcase" style={{ marginRight: 8 }} />
-              Cadastrar Gerente Empório
-            </div>
-          ),
-          command: () => navegar("/cadastrar-gerente-emporio"),
-        },
-      ],
-    },
-    {label: (<><i className="pi pi-sign-out" style={{ marginRight: 8 }} /> Sair do Sistema</>),
-      command: () => sairSistema(),
-    },
-  ];
-
+  const opçõesEmpório = [];
   function sairSistema() {
     setUsuárioLogado({});
     navegar("/");
@@ -114,9 +73,12 @@ export default function MenuLateral({ children }) {
 
   function opçõesMenu() {
     switch (usuárioLogado.perfil) {
-      case "criador": return opçõesCriador;
-      case "gerenteEmpório": return opçõesGerenteEmpório;
-      default: return;
+      case "criador":
+        return opçõesCriador;
+      case "empório":
+        return opçõesEmpório;
+      default:
+        return;
     }
   }
 
@@ -151,7 +113,7 @@ export default function MenuLateral({ children }) {
               <h1 className={`mt-3 ${estilizarTítulo(usuárioLogado?.cor_tema)}`}>
                 {usuárioLogado?.nome}
               </h1>
-              <h2 className={estilizarSubtítulo(usuárioLogado?.cor_tema)} style={{ marginTop: "0" }}>
+              <h2 className={estilizarSubtítulo(usuárioLogado?.cor_tema)}>
                 {formatarPerfil(usuárioLogado?.perfil)}
               </h2>
             </div>
@@ -172,18 +134,6 @@ export default function MenuLateral({ children }) {
     window.addEventListener("resize", redimensionarJanela);
     return () => window.removeEventListener("resize", redimensionarJanela);
   }, []);
-
-  useEffect(() => {
-    const { pathname } = location;
-    const element = document.querySelector(".w-card-user");
-    if (element) {
-      if (pathname === "/atualizar-usuario") {
-        element.style.width = "70%";
-      } else {
-        element.style.width = "";
-      }
-    }
-  }, [location]);
 
   return (
     <div className={estilizarGridSidebar(usuárioLogado?.cor_tema)}>

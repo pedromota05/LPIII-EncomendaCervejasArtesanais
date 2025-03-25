@@ -7,3 +7,7 @@ export function serviçoCadastrarCriador(criador) {
 export function serviçoBuscarCriador(cpf) {
   return servidor.get(`/criadores/${cpf}`);
 }
+
+export function serviçoAtualizarCriador(criador) {
+  return servidor.patch("/criadores", criador);
+}

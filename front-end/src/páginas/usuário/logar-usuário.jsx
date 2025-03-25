@@ -116,7 +116,7 @@ export default function LogarUsuário() {
             label="Login"
             onClick={logarUsuário}
           />
-          <Link className="w-full btn-recupe-acesso mt-2" to="/pagina-inicial">
+          <Link className="w-full btn-recupe-acesso mt-2" to="/recuperar-acesso">
             Recuperar Acesso de Usuário?
           </Link>
           <div className="w-full my-5 text-center">

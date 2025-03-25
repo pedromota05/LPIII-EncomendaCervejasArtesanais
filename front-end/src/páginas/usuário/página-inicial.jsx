@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Card } from "primereact/card";
 import { Image } from "primereact/image";
 import ContextoUsuário from "../../contextos/contexto-usuário";
-import img from "../../imagens/imagem-degustacao.png";
+import imagem from "../../imagens/imagem.png";
 import {
   estilizarCard,
   estilizarCardHome,
@@ -24,7 +24,7 @@ export default function PáginaInicial() {
         Encomenda de Cervejas Artesanais
       </div>
       <Card className={estilizarCardHome(usuárioLogado.cor_tema)}>
-        <Image src={img} alt="Imagem do projeto Degustações Cervejas Artesanais" width="400" />
+        <Image src={imagem} alt="Imagem do projeto Degustações Cervejas Artesanais" width="400" />
       </Card>
     </div>
   );

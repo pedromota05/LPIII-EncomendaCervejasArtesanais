@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 
-import Empório from "./empório";
+import GerenteEmpório from "./gerente-empório";
 import CervejaArtesanal from "./cerveja-artesanal";
 
 export enum Status {PD = "Pendente", EP = "Em preparação", EN = "Enviada", ET = "Entregue"};
@@ -31,8 +31,8 @@ export default class Encomenda extends BaseEntity {
   })
   cervejaArtesanal: CervejaArtesanal;
 
-  @ManyToOne(() => Empório, (empório) => empório.encomendas, {
+  @ManyToOne(() => GerenteEmpório, (gerenteEmpório) => gerenteEmpório.encomendas, {
     onDelete: "CASCADE",
   })
-  empório: Empório;
+  gerenteEmpório: GerenteEmpório;
 }

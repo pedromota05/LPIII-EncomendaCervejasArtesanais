@@ -5,6 +5,7 @@ import { createConnection } from "typeorm";
 
 import RotasUsuário from "./rotas/rotas-usuário";
 import RotasCriador from "./rotas/rotas-criador";
+import RotasGerenteEmpório from "./rotas/rotas-gerente-empório";
 
 const app = express();
 const PORT = process.env.PORT;
@@ -14,6 +15,7 @@ app.use(cors({ origin: CORS_ORIGIN }));
 app.use(express.json());
 app.use("/usuarios", RotasUsuário);
 app.use("/criadores", RotasCriador);
+app.use("/gerentes-emporios", RotasGerenteEmpório);
 
 app.listen(PORT || 3333);
 const conexão = createConnection();

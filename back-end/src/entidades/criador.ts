@@ -11,6 +11,14 @@ import {
 import Usuário from "./usuário";
 import CervejaArtesanal from "./cerveja-artesanal"; 
 
+export enum EstiloCervejaEspecializado {
+  AmericanPaleAle = "americanPaleAle",
+  Weissbier = "weissbier",
+  AmericanIPA = "americanIPA",
+  EnglishPaleAle = "englishPaleAle",
+  Taison = "taison",
+}
+
 @Entity()
 export default class Criador extends BaseEntity {
   @PrimaryGeneratedColumn()
@@ -22,8 +30,8 @@ export default class Criador extends BaseEntity {
   @Column()
   ano_fundação: number;
 
-  @Column()
-  estilo_cerveja_especializado: string;
+  @Column({ type: "enum", enum: EstiloCervejaEspecializado })
+  estilo_cerveja_especializado: EstiloCervejaEspecializado;
 
   @OneToMany(() => CervejaArtesanal, (cervejaArtesanal) => cervejaArtesanal.criador)
   cervejasArtesanais: CervejaArtesanal[];

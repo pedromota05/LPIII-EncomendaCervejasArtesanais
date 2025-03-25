@@ -52,3 +52,9 @@ export function MostrarMensagemErro({ mensagem }) {
   if (mensagem) return <small className={estilizarErro()}>{mensagem}</small>;
   else return null;
 }
+
+export function validarCpf(cpf) {
+  cpf = cpf.replace(/[^\d]/g, "");
+  if (cpf.length === 11) return true;
+  return false;
+}

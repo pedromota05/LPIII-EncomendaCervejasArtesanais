@@ -302,6 +302,24 @@ array-flatten@1.1.1:
   resolved "https://registry.npmjs.org/array-flatten/-/array-flatten-1.1.1.tgz"
   integrity sha512-PCVAQswWemu6UdxsDFFX/+gVeYqKAod3D3UVm91jHwynguOwAvYPhx8nNlM++NqRcK6CxxpUafjmhIdKiHibqg==
 
+"back-end@file:":
+  version "1.0.0"
+  resolved "file:"
+  dependencies:
+    back-end "file:"
+    bcrypt "^5.0.1"
+    cors "^2.8.5"
+    express "^4.17.3"
+    jsonwebtoken "^9.0.1"
+    md5 "^2.3.0"
+    multer "^1.4.5-lts.1"
+    mysql2 "^2.3.3"
+    node-cron "^3.0.2"
+    pg "^8.11.1"
+    ptc-server "file:"
+    reflect-metadata "^0.1.13"
+    typeorm "^0.2.44"
+
 balanced-match@^1.0.0:
   version "1.0.2"
   resolved "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.2.tgz"
@@ -1494,6 +1512,7 @@ pstree.remy@^1.1.8:
   version "1.0.0"
   resolved "file:"
   dependencies:
+    back-end "file:"
     bcrypt "^5.0.1"
     cors "^2.8.5"
     express "^4.17.3"

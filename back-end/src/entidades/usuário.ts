@@ -8,10 +8,10 @@ import {
 } from "typeorm";
 
 import Criador from "./criador";
-import Empório from "./empório";
+import GerenteEmpório from "./gerente-empório";
 
 export enum Perfil {
-  EMPÓRIO = "empório",
+  GERENTEEMPÓRIO = "gerenteEmpório",
   CRIADOR = "criador",
 }
 
@@ -66,8 +66,8 @@ export default class Usuário extends BaseEntity {
   @OneToOne(() => Criador, (criador) => criador.usuário)
   criador: Criador;
 
-  @OneToOne(() => Empório, (empório) => empório.usuário)
-  empório: Empório;
+  @OneToOne(() => GerenteEmpório, (gerenteEmpório) => gerenteEmpório.usuário)
+  gerenteEmpório: GerenteEmpório;
 
   @CreateDateColumn()
   data_criação: Date;
