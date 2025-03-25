@@ -153,7 +153,7 @@ export default function CadastrarGerenteEmpório() {
         return () => (desmontado = true);
     }, [usuárioLogado?.cadastrado, usuárioLogado.cpf]);
     return (
-        <div className={estilizarCardCriador()}>
+        <div className={estilizarCardCriador()} style={{ justifyContent: "center" }}>
             <Toast
                 ref={referênciaToast}
                 onHide={redirecionar}
@@ -161,10 +161,10 @@ export default function CadastrarGerenteEmpório() {
             />
             <Card
                 title={títuloFormulário()}
-                className={estilizarCard(usuárioLogado.cor_tema)}
+                className="my_card_criador"
             >
-                <div className={estilizarDivCampo()}>
-                    <label className={estilizarLabel(usuárioLogado.cor_tema)}>
+                <div className="flex mb-5" style={{ flexDirection: "column" }}>
+                    <label className={`mb-1 font-bold ${estilizarLabel(usuárioLogado.cor_tema)}`}>
                         Telefone*:
                     </label>
                     <InputMask
@@ -172,27 +172,27 @@ export default function CadastrarGerenteEmpório() {
                         autoClear
                         size={TAMANHOS.TELEFONE}
                         onChange={alterarEstado}
-                        className={estilizarInputMask(
+                        className={`border rounded px-2 py-1 ${estilizarInputMask(
                         erros.telefone,
                         usuárioLogado.cor_tema
-                        )}
+                        )}`}
                         mask={TELEFONE_MÁSCARA}
                         value={dados.telefone}
+                        style={{ height: "35px" }}
                     />
                     <MostrarMensagemErro mensagem={erros.telefone} />
                 </div>
-
-                <div className={estilizarDivCampo()}>
-                    <label className={estilizarLabel(dados.cor_tema)}>Localização País*:</label>
+                <div className="flex mb-5" style={{ flexDirection: "column" }}>
+                    <label className={`mb-1 font-bold ${estilizarLabel(usuárioLogado.cor_tema)}`}>Localização País*:</label>
                     <InputText
                         name="localização_pais"
-                        className={estilizarInputText(erros.localização_pais, 400, dados.cor_tema)}
+                        className={`border rounded py-1 ${estilizarInputText(erros.localização_pais, dados.cor_tema)}`}
                         value={dados.localização_pais}
                         onChange={alterarEstado}
+                        style={{ height: "35px" }}
                     />
                     <MostrarMensagemErro mensagem={erros.localização_pais} />
                 </div>
-
                 <div className="flex mb-5" style={{ flexDirection: "column" }}>
                     <label className={`mb-1 font-bold ${estilizarLabel(usuárioLogado.cor_tema)}`}>
                         Nível Experiência*:
@@ -203,7 +203,6 @@ export default function CadastrarGerenteEmpório() {
                         placeholder="-- Selecione --"/>
                     <MostrarMensagemErro mensagem={erros.nível_experiência} />
                 </div>
-
                 <Divider className={estilizarDivider(dados.cor_tema)} />
                 <div className={estilizarInlineFlex()}>
                     <Button

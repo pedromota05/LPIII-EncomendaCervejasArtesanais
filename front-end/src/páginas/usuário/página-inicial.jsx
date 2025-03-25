@@ -9,6 +9,7 @@ import {
   estilizarCardHeaderCentralizado,
   estilizarPáginaÚnica,
 } from "../../utilitários/estilos";
+
 export default function PáginaInicial() {
   const { usuárioLogado } = useContext(ContextoUsuário);
   function HeaderCentralizado() {
@@ -20,10 +21,10 @@ export default function PáginaInicial() {
   }
   return (
     <div className={`image-responsive ${estilizarPáginaÚnica()}`}>
-      <div className={estilizarCardHeaderCentralizado()}>
+      <div className={estilizarCardHeaderCentralizado(usuárioLogado.cor_tema)}>
         Encomenda de Cervejas Artesanais
       </div>
-      <Card className={estilizarCardHome(usuárioLogado.cor_tema)}>
+      <Card className={`${estilizarCardHome(usuárioLogado.cor_tema)} centralizar-conteúdo`}>
         <Image src={imagem} alt="Imagem do projeto Degustações Cervejas Artesanais" width="400" />
       </Card>
     </div>

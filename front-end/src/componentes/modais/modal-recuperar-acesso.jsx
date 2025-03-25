@@ -20,6 +20,7 @@ import {
     estilizarModal,
     estilizarPasswordInput,
     estilizarPasswordTextInputBorder,
+    estilizarFlex,
 } from "../../utilitários/estilos";
 
 export default function ModalRecuperarAcesso() {
@@ -94,6 +95,7 @@ export default function ModalRecuperarAcesso() {
                 size={TAMANHOS.SENHA}
                 value={dados.senha}
                 onChange={alterarEstado}
+                style={{ height: "35px" }}
             />
             <Password
                 name="confirmação"
@@ -106,14 +108,18 @@ export default function ModalRecuperarAcesso() {
                 feedback={false}
                 value={dados.confirmação}
                 onChange={alterarEstado}
+                style={{ height: "35px" }}
             />
             <MostrarMensagemErro mensagem={erros.senha || erros.confirmação} />
         </div>
-        <Button
-            className={estilizarBotão()}
-            label="Salvar"
-            onClick={alterarSenha}
-        />
+        <div className={`mt-4 ${estilizarFlex()}`}>
+            <Button
+                className="button-confirmacao-cadastro"
+                label="Salvar"
+                onClick={alterarSenha}
+                style={{ width: "35%" }}
+            />
+        </div>
         </div>
     );
 }

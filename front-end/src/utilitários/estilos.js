@@ -39,8 +39,8 @@ export function estilizarCard(cor_tema) {
   return `w-card-user overflow-auto pt-2 pb-3 m-5 text-${cor_tema}-700 border-2 shadow-8 card-cadastro`;
 }
 
-export function estilizarCardHeaderCentralizado() {
-  return "flex justify-content-center font-bold text-2xl mb-3";
+export function estilizarCardHeaderCentralizado(cor_tema) {
+  return `flex justify-content-center font-bold text-2xl text-${cor_tema}-700 mb-3`;
 }
 
 export function estilizarColuna() {
@@ -52,7 +52,7 @@ export function estilizarDialog() {
 }
 
 export function estilizarDivBotõesAção() {
-  return "align-self-center my-4";
+  return "align-self-center mt-4";
 }
 
 export function estilizarDivCampo() {
@@ -82,7 +82,7 @@ export function estilizarFlex(alinhamento = "start") {
 }
 
 export function estilizarCardCriador(alinhamento = "center") {
-  return `flex align-items-${alinhamento} h-screen`;
+  return `flex align-items-${alinhamento} min-h-screen`;
 }
 
 export function estilizarFooterDialog() {
@@ -128,7 +128,7 @@ export function estilizarLabel(cor_tema = TEMA_PADRÃO) {
 }
 
 export function estilizarLink(cor_tema) {
-  return `font-bold text-md mt-4 md:text-sm text-${cor_tema}-800`;
+  return `font-bold text-md mt-3 md:text-sm text-${cor_tema}-800`;
 }
 
 export function estilizarLogo() {

@@ -207,6 +207,18 @@ td {
 .p-inputtext {
   font-size: 0.9rem !important;
 }
+.p-dialog .p-dialog-header .p-dialog-title {
+  text-align: center;
+  margin-top: 10px;
+}
+.centralizar-conteúdo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.p-dialog .p-dialog-header .p-dialog-header-icon {
+  margin-top: 12px;
+}
 /*  */
 @media (max-width: 992px) {
   .image-responsive {

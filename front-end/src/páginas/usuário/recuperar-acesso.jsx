@@ -167,12 +167,12 @@ export default function RecuperarAcesso() {
                         onClick={validarConfirmarRecuperaçãoAcesso}
                     />
                     <Link
-    to="/"
-    className={`text-center ${estilizarLink()}`}
-    style={{ display: "block", margin: "0 auto" }}
->
-    Voltar ao Login
-</Link>
+                        to="/"
+                        className={`text-center ${estilizarLink()}`}
+                        style={{ display: "block", margin: "0 auto" }}
+                    >
+                        Voltar ao Login
+                    </Link>
                 </div>
             </Card>
         </div>

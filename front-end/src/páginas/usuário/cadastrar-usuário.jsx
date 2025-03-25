@@ -226,7 +226,7 @@ export default function CadastrarUsuário() {
             label="Remover"
             onClick={() => confirmarOperação("remover")}
           />
-      </div>
+        </div>
       );
     }
   }
