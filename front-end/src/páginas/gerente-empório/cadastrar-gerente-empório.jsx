@@ -186,7 +186,7 @@ export default function CadastrarGerenteEmpório() {
                     <label className={`mb-1 font-bold ${estilizarLabel(usuárioLogado.cor_tema)}`}>Localização País*:</label>
                     <InputText
                         name="localização_pais"
-                        className={`border rounded py-1 ${estilizarInputText(erros.localização_pais, dados.cor_tema)}`}
+                        className={`border rounded py-1 ${estilizarInputText(erros.localização_pais, usuárioLogado.cor_tema)}`}
                         value={dados.localização_pais}
                         onChange={alterarEstado}
                         style={{ height: "35px" }}

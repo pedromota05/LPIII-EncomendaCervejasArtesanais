@@ -36,7 +36,7 @@ export function estilizarCardHome(cor_tema) {
 }
 
 export function estilizarCard(cor_tema) {
-  return `w-card-user overflow-auto pt-2 pb-3 m-5 text-${cor_tema}-700 border-2 shadow-8 card-cadastro`;
+  return `w-card-user overflow-auto pt-1 pb-3 m-3 text-${cor_tema}-700 border-2 shadow-8 card-cadastro`;
 }
 
 export function estilizarCardHeaderCentralizado(cor_tema) {
@@ -64,7 +64,7 @@ export function estilizarDivCampoLimpar() {
 }
 
 export function estilizarDivider(cor_tema = TEMA_PADRÃO) {
-  return `mt-3 mb-3 border-1 border-${cor_tema}-800`;
+  return `mb-3 border-1 border-${cor_tema}-800`;
 }
 
 export function estilizarDropdown(erro, cor_tema) {
