@@ -70,16 +70,16 @@ export default function RecuperarAcesso() {
         setDados({ ...dados, cpf });
         clearTimeout(timer);
         const novoTimer = setTimeout(async () => {
-        try {
-            if (validarCpf(event.target.value)) {
-            const response = await serviçoBuscarQuestãoSegurança(cpf);
-            setDesabilitar(false);
-            setDados({ ...dados, cpf, questão: response.data.questão });
+            try {
+                if (validarCpf(event.target.value)) {
+                    const response = await serviçoBuscarQuestãoSegurança(cpf);
+                    setDesabilitar(false);
+                    setDados({ ...dados, cpf, questão: response.data.questão });
+                }
+            } catch (error) {
+                mostrarToast(referênciaToast, error.response.data.mensagem, "erro");
+                setDados({ ...dados, questão: "" });
             }
-        } catch (error) {
-            mostrarToast(referênciaToast, error.response.data.mensagem, "erro");
-            setDados({ ...dados, questão: "" });
-        }
         }, 1500);
         setTimer(novoTimer);
     }

@@ -80,46 +80,46 @@ export default function ModalRecuperarAcesso() {
     }
     return (
         <div className={estilizarModal()}>
-        <Toast
-            ref={referênciaToast}
-            onHide={navegarLogarUsuário}
-            position="bottom-center"
-        />
-        <div className={estilizarDivCampo()}>
-            <label className={estilizarLabel()}>Senha e Confirmar Senha*:</label>
-            <Password
-                name="senha"
-                inputClassName={estilizarPasswordTextInputBorder()}
-                toggleMask
-                className={estilizarPasswordInput(erros.senha)}
-                size={TAMANHOS.SENHA}
-                value={dados.senha}
-                onChange={alterarEstado}
-                style={{ height: "35px" }}
+            <Toast
+                ref={referênciaToast}
+                onHide={navegarLogarUsuário}
+                position="bottom-center"
             />
-            <Password
-                name="confirmação"
-                inputClassName={estilizarPasswordTextInputBorder()}
-                toggleMask
-                className={estilizarPasswordInput(
-                    erros.senha || erros.confirmação_senha
-                )}
-                size={TAMANHOS.SENHA}
-                feedback={false}
-                value={dados.confirmação}
-                onChange={alterarEstado}
-                style={{ height: "35px" }}
-            />
-            <MostrarMensagemErro mensagem={erros.senha || erros.confirmação} />
-        </div>
-        <div className={`mt-4 ${estilizarFlex()}`}>
-            <Button
-                className="button-confirmacao-cadastro"
-                label="Salvar"
-                onClick={alterarSenha}
-                style={{ width: "35%" }}
-            />
-        </div>
+            <div className={estilizarDivCampo()}>
+                <label className={estilizarLabel()}>Senha e Confirmar Senha*:</label>
+                <Password
+                    name="senha"
+                    inputClassName={estilizarPasswordTextInputBorder()}
+                    toggleMask
+                    className={estilizarPasswordInput(erros.senha)}
+                    size={TAMANHOS.SENHA}
+                    value={dados.senha}
+                    onChange={alterarEstado}
+                    style={{ height: "35px" }}
+                />
+                <Password
+                    name="confirmação"
+                    inputClassName={estilizarPasswordTextInputBorder()}
+                    toggleMask
+                    className={estilizarPasswordInput(
+                        erros.senha || erros.confirmação_senha
+                    )}
+                    size={TAMANHOS.SENHA}
+                    feedback={false}
+                    value={dados.confirmação}
+                    onChange={alterarEstado}
+                    style={{ height: "35px" }}
+                />
+                <MostrarMensagemErro mensagem={erros.senha || erros.confirmação} />
+            </div>
+            <div className={`mt-4 ${estilizarFlex()}`}>
+                <Button
+                    className="button-confirmacao-cadastro"
+                    label="Salvar"
+                    onClick={alterarSenha}
+                    style={{ width: "35%" }}
+                />
+            </div>
         </div>
     );
 }

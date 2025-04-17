@@ -47,7 +47,8 @@ export default function CadastrarGerenteEmpório() {
     const [erros, setErros] = useState({});
     const [cpfExistente, setCpfExistente] = useState(false);
     const navegar = useNavigate();
-    const opçõesNívelExperiência = [{ label: "Júnior", value: "junior"},
+    const opçõesNívelExperiência = [
+        { label: "Júnior", value: "junior"},
         { label: "Pleno", value: "pleno" },
         { label: "Sênior", value: "senior" },
     ];
@@ -68,47 +69,47 @@ export default function CadastrarGerenteEmpório() {
     }
     async function cadastrarGerenteEmpório() {
         if (validarCampos()) {
-        try {
-            const response = await serviçoCadastrarGerenteEmpório({
-                ...dados,
-                usuário_info: usuárioLogado,
-                telefone: dados.telefone,
-                localização_pais: dados.localização_pais,
-                nível_experiência: dados.nível_experiência,
-            });
-            if (response.data)
-            setUsuárioLogado((usuário) => ({
-                ...usuário,
-                status: response.data.status,
-                token: response.data.token,
-            }));
-            mostrarToast(
-                referênciaToast,
-                "Gerente Empório cadastrado com sucesso!",
-                "sucesso"
-            );
-        } catch (error) {
-            setCpfExistente(true);
-            mostrarToast(referênciaToast, error.response.data.erro, "erro");
-        }
+            try {
+                const response = await serviçoCadastrarGerenteEmpório({
+                    ...dados,
+                    usuário_info: usuárioLogado,
+                    telefone: dados.telefone,
+                    localização_pais: dados.localização_pais,
+                    nível_experiência: dados.nível_experiência,
+                });
+                if (response.data)
+                setUsuárioLogado((usuário) => ({
+                    ...usuário,
+                    status: response.data.status,
+                    token: response.data.token,
+                }));
+                mostrarToast(
+                    referênciaToast,
+                    "Gerente Empório cadastrado com sucesso!",
+                    "sucesso"
+                );
+            } catch (error) {
+                setCpfExistente(true);
+                mostrarToast(referênciaToast, error.response.data.erro, "erro");
+            }
         }
     }
     async function atualizarGerenteEmpório() {
         if (validarCampos()) {
-        try {
-            const response = await serviçoAtualizarGerenteEmpório({
-            ...dados,
-            cpf: usuárioLogado.cpf,
-            });
-            if (response)
-            mostrarToast(
-                referênciaToast,
-                "Gerente Empório atualizado com sucesso!",
-                "sucesso"
-            );
-        } catch (error) {
-            mostrarToast(referênciaToast, error.response.data.erro, "erro");
-        }
+            try {
+                const response = await serviçoAtualizarGerenteEmpório({
+                ...dados,
+                cpf: usuárioLogado.cpf,
+                });
+                if (response)
+                mostrarToast(
+                    referênciaToast,
+                    "Gerente Empório atualizado com sucesso!",
+                    "sucesso"
+                );
+            } catch (error) {
+                mostrarToast(referênciaToast, error.response.data.erro, "erro");
+            }
         }
     }
     function labelBotãoSalvar() {
@@ -137,12 +138,12 @@ export default function CadastrarGerenteEmpório() {
         try {
             const response = await serviçoBuscarGerenteEmpório(usuárioLogado.cpf);
             if (!desmontado && response.data) {
-            setDados((dados) => ({
-                ...dados,
-                telefone: response.data.telefone,
-                localização_pais: response.data.localização_pais,
-                nível_experiência: response.data.nível_experiência,
-            }));
+                setDados((dados) => ({
+                    ...dados,
+                    telefone: response.data.telefone,
+                    localização_pais: response.data.localização_pais,
+                    nível_experiência: response.data.nível_experiência,
+                }));
             }
         } catch (error) {
             const erro = error.response.data.erro;
