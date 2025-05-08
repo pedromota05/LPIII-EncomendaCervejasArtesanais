@@ -25,7 +25,7 @@ export enum Disponibilidade {
 }
 
 @Entity()
-export default class Proposta extends BaseEntity {
+export default class CervejaArtesanal extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 

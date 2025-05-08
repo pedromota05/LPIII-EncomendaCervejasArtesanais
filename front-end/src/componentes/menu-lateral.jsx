@@ -61,6 +61,15 @@ export default function MenuLateral({ children }) {
           ),
           command: () => navegar("/cadastrar-criador"),
         },
+        {
+          label: (
+            <div style={{ paddingLeft: '20px' }}>
+              <i className="pi pi-book" style={{ marginRight: 8 }} />
+                Administrar Cervejas Artesanais
+            </div>
+          ),
+          command: () => navegar("/administrar-cervejas-artesanais"),
+        },
       ],
     },
     {label: (<><i className="pi pi-sign-out" style={{ marginRight: 8 }} /> Sair do Sistema</>),
@@ -99,6 +108,15 @@ export default function MenuLateral({ children }) {
             </div>
           ),
           command: () => navegar("/cadastrar-gerente-emporio"),
+        },
+        {
+          label: (
+            <div style={{ paddingLeft: '20px' }}>
+              <i className="pi pi-book" style={{ marginRight: 8 }} />
+                Administrar Encomendas
+            </div>
+          ),
+          command: () => navegar("/administrar-encomendas"),
         },
       ],
     },

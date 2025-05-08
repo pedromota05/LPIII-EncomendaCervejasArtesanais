@@ -56,15 +56,11 @@ a {
   margin-bottom: 0;
 } /* Remove margem inferior do radio button */
 .p-column-title {
-  font-size: 14px;
+  font-size: 13px;
 } /* Altera o tamanho da fonte do título da coluna nas tabelas */
 td {
   font-size: 14px;
 } /* Altera o tamanho da fonte nas linhas nas tabelas */
-/* Remove padding que aumenta tamanho da linha das tabelas */
-.p-datatable-tbody td {
-  padding: 2px 10px !important;
-}
 /* Deixar o ícone de filtro próximo do título da coluna */
 .p-column-header-content {
   display: block !important;
@@ -77,7 +73,8 @@ td {
 }
 /* Diminui altura da esfera ao redor do número da página atual do paginator */
 .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
-  height: 40px;
+  height: 35px;
+  min-width: 35px !important;
 }
 /* desktop */
 .input400 {

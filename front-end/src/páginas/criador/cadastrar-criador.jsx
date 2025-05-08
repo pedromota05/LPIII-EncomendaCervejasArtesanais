@@ -46,7 +46,7 @@ export default function CadastrarCriador() {
   const [cpfExistente, setCpfExistente] = useState(false);
   const navegar = useNavigate();
   const opçõesEstiloCervejaEspecializado = [
-    { label: "American Pale Ale", value: "AmericanPaleAle"},
+    { label: "American Pale Ale", value: "americanPaleAle"},
     { label: "Weissbier", value: "weissbier" },
     { label: "American IPA", value: "americanIPA" },
     { label: "English Pale Ale", value: "englishPaleAle" },

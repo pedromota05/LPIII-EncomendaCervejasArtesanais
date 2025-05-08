@@ -4,6 +4,7 @@ import { getManager } from "typeorm";
 import Usuário, { Status } from "../entidades/usuário";
 import ServiçosUsuário from "./serviços-usuário";
 import Criador from "../entidades/criador";
+import CervejaArtesanal from "../entidades/cerveja-artesanal";
 
 export default class ServiçosCriador {
   constructor() {}
@@ -59,6 +60,103 @@ export default class ServiçosCriador {
       });
     } catch (error) {
       return response.status(500).json({ erro: "Erro BD : buscarCriador" });
+    }
+  }
+
+  static async cadastrarCervejaArtesanal(request, response) {
+    try {
+      const { nome, teor_alcoolico, categoria, disponibilidade, cpf } = request.body;
+      const cpf_encriptado = md5(cpf);
+      const criador = await Criador.findOne({
+        where: { usuário: cpf_encriptado },
+        relations: ["usuário"],
+      });
+      await CervejaArtesanal.create({
+        nome,
+        teor_alcoolico,
+        categoria,
+        disponibilidade,
+        criador,
+      }).save();
+      return response.json();
+    } catch (error) {
+      return response
+        .status(500)
+        .json({ erro: "Erro BD : cadastrarCervejaArtesanal" });
+    }
+  }
+
+  static async alterarCervejaArtesanal(request, response) {
+    try {
+      const { id, nome, teor_alcoolico, categoria, disponibilidade } = request.body;
+      await CervejaArtesanal.update(id, {
+        nome,
+        teor_alcoolico,
+        categoria,
+        disponibilidade,
+      });
+      return response.json();
+    } catch (error) {
+      return response
+        .status(500)
+        .json({ erro: "Erro BD : alterarCervejaArtesanal", error });
+    }
+  }
+
+  static async removerCervejaArtesanal(request, response) {
+    try {
+      const id_cerveja = request.params.id;
+      const cervejaArtesanal = await CervejaArtesanal.findOne(id_cerveja);
+      await CervejaArtesanal.remove(cervejaArtesanal);
+      return response.json();
+    } catch (error) {
+      return response
+        .status(500)
+        .json({ erro: "Erro BD : removerCervejaArtesanal" });
+    }
+  }
+
+  static async buscarCervejasArtesanaisCriador(request, response) {
+    try {
+      const cpf_encriptado = md5(request.params.cpf);
+      const cervejasArtesanais = await CervejaArtesanal.find({
+        where: { criador: { usuário: cpf_encriptado } },
+        relations: ["criador", "criador.usuário"],
+      });
+      return response.json(cervejasArtesanais);
+    } catch (error) {
+      return response
+        .status(500)
+        .json({ erro: "Erro BD : buscarCervejasArtesanaisCriador" });
+    }
+  }
+
+  static filtrarCategoriasEliminandoRepetição(cervejasArtesanais: CervejaArtesanal[]) {
+    let categorias: { label: string; value: string }[];
+    categorias = cervejasArtesanais
+      .filter(
+        (cervejaArtesanal, índice, cervejas_antes_filtrar) =>
+          cervejas_antes_filtrar.findIndex(
+            (cerveja_anterior) => cerveja_anterior.categoria === cervejaArtesanal.categoria
+          ) === índice
+      )
+      .map((cervejaArtesanal) => ({
+        label: cervejaArtesanal.categoria,
+        value: cervejaArtesanal.categoria,
+      }));
+    return categorias;
+  }
+
+  static async buscarEncomendasCervejasArtesanais(request, response) {
+    try {
+      const cervejasArtesanais = await CervejaArtesanal.find();
+      const categorias =
+        ServiçosCriador.filtrarCategoriasEliminandoRepetição(cervejasArtesanais);
+      return response.json(categorias.sort());
+    } catch (error) {
+      return response
+        .status(500)
+        .json({ erro: "Erro BD : buscarEncomendasCervejasArtesanais" });
     }
   }
 }
