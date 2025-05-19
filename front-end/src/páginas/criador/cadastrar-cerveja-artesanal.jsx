@@ -7,6 +7,7 @@ import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import { InputNumber } from "primereact/inputnumber";
 import { Toast } from "primereact/toast";
+import { Checkbox } from "primereact/checkbox";
 import ContextoUsuário from "../../contextos/contexto-usuário";
 import ContextoCriador from "../../contextos/contexto-criador";
 import {
@@ -34,6 +35,7 @@ import {
     estilizarInputText,
     estilizarInputNumber,
     estilizarLabel,
+    estilizarCheckbox,
 } from "../../utilitários/estilos";
  
 export default function CadastrarCervejaArtesanal() {
@@ -45,6 +47,7 @@ export default function CadastrarCervejaArtesanal() {
         teor_alcoolico: cervejaArtesanalConsultada?.teor_alcoolico || "",
         categoria: cervejaArtesanalConsultada?.categoria || "",
         disponibilidade: cervejaArtesanalConsultada?.disponibilidade || "",
+        contem_gluten: cervejaArtesanalConsultada?.contem_gluten || "",
     });
     const [listaCategorias, setListaCategorias] = useState([]);
     const [erros, setErros] = useState({});
@@ -277,6 +280,14 @@ export default function CadastrarCervejaArtesanal() {
                         placeholder="-- Selecione --"
                     />
                     <MostrarMensagemErro mensagem={erros.disponibilidade} />
+                </div>
+
+                <div className="flex mb-5" style={{ flexDirection: "column" }}>
+                    <label className={`mb-1 font-bold ${estilizarLabel(usuárioLogado.cor_tema)}`}>
+                        Contém Glúten*:
+                    </label>
+                    <Checkbox name="contem_gluten" checked={dados.contem_gluten}
+                    className={estilizarCheckbox()} onChange={alterarEstado} autoResize/>
                 </div>
         
                 <Divider className={estilizarDivider()} />

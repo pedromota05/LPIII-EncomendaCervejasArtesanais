@@ -41,6 +41,9 @@ export default class CervejaArtesanal extends BaseEntity {
   @Column({ type: "enum", enum: Disponibilidade })
   disponibilidade: Disponibilidade;
 
+  @Column()
+  contem_gluten: boolean;
+
   @ManyToOne(() => Criador, (criador) => criador.cervejasArtesanais, {
     onDelete: "CASCADE",
   })

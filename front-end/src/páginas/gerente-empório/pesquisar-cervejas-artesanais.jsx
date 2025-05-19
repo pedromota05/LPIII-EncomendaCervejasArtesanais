@@ -7,6 +7,7 @@ import { DataTable } from "primereact/datatable";
 import { Divider } from "primereact/divider";
 import { Dropdown } from "primereact/dropdown";
 import { Toast } from "primereact/toast";
+import { TriStateCheckbox } from "primereact/tristatecheckbox";
 import ContextoUsuário from "../../contextos/contexto-usuário";
 import ContextoGerenteEmpório from "../../contextos/contexto-gerente-empório";
 import { serviçoBuscarCervejasArtesanais } from "../../serviços/serviços-gerente-empório";
@@ -23,6 +24,7 @@ import {
     estilizarDivider,
     estilizarFilterMenu,
     estilizarFlex,
+    estilizarTriStateCheckbox,
 } from "../../utilitários/estilos";
 
 export default function PesquisarPeçasMusicais() {
@@ -43,11 +45,6 @@ export default function PesquisarPeçasMusicais() {
         { label: "Amber Ale", value: "amberAle" },
         { label: "American Pale Ale", value: "americanPaleAle" },
         { label: "Pale Ale", value: "paleAle" },
-    ];
-
-    const opçõesDisponibilidade = [
-        { label: "Limitada", value: "limitada" },
-        { label: "Ano todo", value: "anoTodo" },
     ];
 
     function retornarCadastrarEncomenda() {
@@ -89,20 +86,22 @@ export default function PesquisarPeçasMusicais() {
         );
     }
 
-    function DropdownDisponibilidadeTemplate(opções) {
-        function alterarFiltroDropdown(event) {
-        return opções.filterCallback(event.value, opções.index);
-        }
+    function BooleanBodyTemplate(cervejaArtesanal) {
+        if (cervejaArtesanal.contem_gluten) return "Sim";
+        else return "Não";
+    };
+
+    function BooleanFilterTemplate(opções) {
+        function alterarFiltroTriState(event) { return opções.filterCallback(event.value); };
         return (
-        <Dropdown
-            value={opções.value}
-            options={opçõesDisponibilidade}
-            placeholder="Selecione"
-            onChange={alterarFiltroDropdown}
-            showClear
-        />
+          <div>
+            <label>Contem Gluten:</label>
+            <TriStateCheckbox
+            className={estilizarTriStateCheckbox(usuárioLogado?.cor_tema)} value={opções.value}
+            onChange={alterarFiltroTriState}/>
+        </div>
         );
-    }
+    };
 
     useEffect(() => {
         let desmontado = false;
@@ -189,20 +188,11 @@ export default function PesquisarPeçasMusicais() {
                         showFilterMenuOptions={false}
                         sortable
                     />
-                    <Column
-                        headerClassName={estilizarColumnHeader(usuárioLogado.cor_tema)}
-                        field="disponibilidade"
-                        header="Disponibilidade"
-                        filter
-                        filterMatchMode="equals"
-                        filterElement={DropdownDisponibilidadeTemplate}
-                        showClearButton={false}
-                        showFilterOperator={false}
-                        showFilterMatchModes={false}
+                    <Column field="contem_gluten" header="Contem Gluten" dataType="boolean" filter showFilterOperator={false}
+                        body={BooleanBodyTemplate} filterElement={BooleanFilterTemplate}
+                        filterMatchMode="equals" showClearButton={false} showAddButton={false}
                         filterMenuClassName={estilizarFilterMenu()}
-                        showFilterMenuOptions={false}
-                        sortable
-                    />
+                        headerClassName={estilizarColumnHeader(usuárioLogado.cor_tema)} sortable/>
                 </DataTable>
                 <Divider className={estilizarDivider()} />
                 <Button

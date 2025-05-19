@@ -65,7 +65,7 @@ export default class ServiçosCriador {
 
   static async cadastrarCervejaArtesanal(request, response) {
     try {
-      const { nome, teor_alcoolico, categoria, disponibilidade, cpf } = request.body;
+      const { nome, teor_alcoolico, categoria, disponibilidade, contem_gluten, cpf } = request.body;
       const cpf_encriptado = md5(cpf);
       const criador = await Criador.findOne({
         where: { usuário: cpf_encriptado },
@@ -76,6 +76,7 @@ export default class ServiçosCriador {
         teor_alcoolico,
         categoria,
         disponibilidade,
+        contem_gluten,
         criador,
       }).save();
       return response.json();
@@ -88,12 +89,13 @@ export default class ServiçosCriador {
 
   static async alterarCervejaArtesanal(request, response) {
     try {
-      const { id, nome, teor_alcoolico, categoria, disponibilidade } = request.body;
+      const { id, nome, teor_alcoolico, categoria, disponibilidade, contem_gluten } = request.body;
       await CervejaArtesanal.update(id, {
         nome,
         teor_alcoolico,
         categoria,
         disponibilidade,
+        contem_gluten
       });
       return response.json();
     } catch (error) {

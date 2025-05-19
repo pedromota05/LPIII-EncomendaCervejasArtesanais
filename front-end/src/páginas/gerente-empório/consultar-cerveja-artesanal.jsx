@@ -35,6 +35,8 @@ import {
      cervejaArtesanalConsultada?.categoria || cervejaArtesanalInteresse?.categoria,
      disponibilidade:
      cervejaArtesanalConsultada?.disponibilidade || cervejaArtesanalInteresse?.disponibilidade,
+     contem_gluten:
+     cervejaArtesanalConsultada?.contem_gluten || cervejaArtesanalInteresse?.contem_gluten,
    };
    const navegar = useNavigate();
    function retornar() {
@@ -112,6 +114,11 @@ import {
              disabled
            />
          </div>
+         <div cclassName="flex mb-3" style={{ flexDirection: "column" }}>
+            <label className={`mb-1 font-bold ${estilizarLabel(usuárioLogado.cor_tema)}`}>Contem Gluten*:</label>
+            <Checkbox name="contem_gluten" checked={dados.contem_gluten}
+              className={estilizarCheckbox(null)} autoResize disabled/>
+          </div>
          <Divider className={estilizarDivider()} />
          <div className={estilizarInlineFlex()}>
            <Button

@@ -6,6 +6,7 @@ import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import { Divider } from "primereact/divider";
 import { Dropdown } from "primereact/dropdown";
+import { TriStateCheckbox } from "primereact/tristatecheckbox";
 import ContextoCriador from "../../contextos/contexto-criador";
 import ContextoUsuário from "../../contextos/contexto-usuário";
 import { serviçoBuscarCervejasArtesanaisCriador } from "../../serviços/serviços-criador";
@@ -23,6 +24,7 @@ import {
     estilizarDivider,
     estilizarFilterMenu,
     estilizarFlex,
+    estilizarTriStateCheckbox,
 } from "../../utilitários/estilos";
  
 export default function AdministrarCervejasArtesanais() {
@@ -103,6 +105,23 @@ export default function AdministrarCervejasArtesanais() {
       />
     );
   }
+
+  function BooleanBodyTemplate(cervejaArtesanal) {
+    if (cervejaArtesanal.contem_gluten) return "Sim";
+    else return "Não";
+  };
+
+  function BooleanFilterTemplate(opções) {
+    function alterarFiltroTriState(event) { return opções.filterCallback(event.value); };
+    return (
+      <div>
+        <label>Contem Gluten:</label>
+        <TriStateCheckbox
+        className={estilizarTriStateCheckbox(usuárioLogado?.cor_tema)} value={opções.value}
+        onChange={alterarFiltroTriState}/>
+    </div>
+    );
+  };
  
   useEffect(() => {
     let desmontado = false;
@@ -199,6 +218,11 @@ export default function AdministrarCervejasArtesanais() {
             showFilterMenuOptions={false}
             sortable
           />
+          <Column field="contem_gluten" header="Contem Gluten" filter showFilterOperator={false}
+            headerClassName={estilizarColumnHeader(usuárioLogado.cor_tema)} sortable
+            filterMatchMode="equals" filterElement={BooleanFilterTemplate}
+            body={BooleanBodyTemplate} showClearButton={false} showAddButton={false}
+            filterMenuClassName={estilizarFilterMenu()} dataType="boolean"/>
         </DataTable>
         <Divider className={estilizarDivider()} />
         <Button
