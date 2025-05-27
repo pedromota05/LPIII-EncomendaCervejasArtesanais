@@ -5,6 +5,7 @@ import Usuário, { Status } from "../entidades/usuário";
 import ServiçosUsuário from "./serviços-usuário";
 import Criador from "../entidades/criador";
 import CervejaArtesanal from "../entidades/cerveja-artesanal";
+import Encomenda from "../entidades/encomenda";
 
 export default class ServiçosCriador {
   constructor() {}
@@ -161,4 +162,16 @@ export default class ServiçosCriador {
         .json({ erro: "Erro BD : buscarEncomendasCervejasArtesanais" });
     }
   }
+
+  static async buscarEncomendasCervejaArtesanal(request, response) {
+    try {
+      const id_cervejaArtesanal = request.params.id_cervejaArtesanal;
+      const encomendas = await Encomenda.find({ where: { cervejaArtesanal: { id: id_cervejaArtesanal } },
+        relations: ["gerenteEmpório", "gerenteEmpório.usuário", "cervejaArtesanal"]});
+      return response.json(encomendas);
+    } catch (error) {
+      return response.status(500).json(
+        { erro: "Erro BD : buscarEncomendasCervejaArtesanal" });
+    }
+  };
 }

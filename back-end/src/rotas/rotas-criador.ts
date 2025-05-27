@@ -58,3 +58,10 @@ RotasCriador.get(
   verificarPerfilCriador,
   ServiçosCriador.buscarEncomendasCervejasArtesanais
 );
+
+RotasCriador.get(
+  "/encomendas/:id_cervejaArtesanal", 
+  verificarToken, 
+  verificarPerfilCriador,
+  ServiçosCriador.buscarEncomendasCervejaArtesanal
+);
