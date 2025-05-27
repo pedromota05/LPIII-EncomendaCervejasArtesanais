@@ -282,7 +282,7 @@ export default function CadastrarCervejaArtesanal() {
                     <MostrarMensagemErro mensagem={erros.disponibilidade} />
                 </div>
 
-                <div className="flex mb-5" style={{ flexDirection: "column" }}>
+                <div>
                     <label className={`mb-1 font-bold ${estilizarLabel(usuárioLogado.cor_tema)}`}>
                         Contém Glúten*:
                     </label>

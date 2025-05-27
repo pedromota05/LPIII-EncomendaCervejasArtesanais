@@ -67,8 +67,7 @@ export default function CadastrarCriador() {
   }
 
   function títuloFormulário() {
-    if (usuárioLogado?.cadastrado) return "Consultar Criador";
-    else return "Alterar Criador";
+    if (usuárioLogado?.cadastrado) return "Alterar Criador";
   }
 
   async function cadastrarCriador() {

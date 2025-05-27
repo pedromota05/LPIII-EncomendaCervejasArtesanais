@@ -96,7 +96,9 @@ export default function CadastrarEncomenda() {
           "Encomenda cadastrada com sucesso!",
           "sucesso"
         );
-        retornarAdministrarEncomendas();
+        setTimeout(() => {
+          retornarAdministrarEncomendas();
+        }, 2000);
       } catch (error) {
         console.error("Erro ao cadastrar encomenda:", error);
         mostrarToast(
@@ -228,10 +230,12 @@ export default function CadastrarEncomenda() {
         className="my_card_criador"
       >
         <div>
-          <label className={`mb-1 font-bold ${estilizarLabel(usuárioLogado.cor_tema)}`}>
-            {cervejaArtesanalLabel()}
-          </label>
-          <BotãoSelecionar />
+          <div className="flex align-items-center mb-3">
+            <label className={`mb-1 font-bold ${estilizarLabel(usuárioLogado.cor_tema)}`}>
+              {cervejaArtesanalLabel()}
+            </label>
+            <BotãoSelecionar />
+          </div>
           <div className="flex mt-1 mb-5" style={{ flexDirection: "column" }}>
           <CervejaArtesanalInputText/>
           </div>
