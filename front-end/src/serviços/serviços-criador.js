@@ -31,3 +31,7 @@ export function serviçoBuscarCervejasArtesanaisCriador(cpf) {
 export function serviçoBuscarEncomendasCervejasArtesanais() {
   return servidor.get("/criadores/cervejas-artesanais/encomendas");
 }
+
+export function serviçoBuscarEncomendasCervejaArtesanal(id_cervejaArtesanal) {
+  return servidor.get(`/criadores/encomendas/${id_cervejaArtesanal}`);
+}

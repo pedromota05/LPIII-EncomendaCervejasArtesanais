@@ -21,7 +21,7 @@ export const TAMANHOS = {
 export const TEMA_PADRÃO = "bluegray";
 
 export function estilizarBotão(cor_tema) {
-  return `p-button-sm h-2rem text-base w-auto md:w-min mr-2
+  return `p-button-sm h-2rem text-base w-auto mr-2
 bg-${cor_tema}-600 border-none shadow-6`;
 }
 

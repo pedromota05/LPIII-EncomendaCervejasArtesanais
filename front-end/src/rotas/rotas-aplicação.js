@@ -17,6 +17,11 @@ import CadastrarEncomenda from "../páginas/gerente-empório/cadastrar-encomenda
 import PesquisarCervejasArtesanais from "../páginas/gerente-empório/pesquisar-cervejas-artesanais";
 import ConsultarCervejaArtesanal from "../páginas/gerente-empório/consultar-cerveja-artesanal";
 
+import PesquisarEncomendas from "../páginas/criador/pesquisar-encomendas";
+import ConsultarEncomenda from "../páginas/criador/consultar-encomendas";
+import ConsultarGerenteEmpório from "../páginas/criador/consultar-gerente-empório-interessado";
+import ConsultarCriador from "../páginas/gerente-empório/consultar-criador-proponente";
+
 export default function Rotas() {
   return (
     <BrowserRouter>
@@ -43,6 +48,9 @@ export default function Rotas() {
               element={<CadastrarCervejasArtesanais />}
               path="cadastrar-cervejas-artesanais"
             />
+            <Route element={<PesquisarEncomendas />} path="pesquisar-encomendas" />
+            <Route element={<ConsultarEncomenda />} path="consultar-encomenda" />
+            <Route element={<ConsultarGerenteEmpório />} path="consultar-gerente-emporio-interessado" />
           </Route>
 
           <Route
@@ -72,6 +80,7 @@ export default function Rotas() {
               element={<ConsultarCervejaArtesanal />}
               path="consultar-cerveja-artesanal"
             />
+            <Route element={<ConsultarCriador/>} path="consultar-criador-proponente"/>
           </Route>
         </Route>
       </Routes>

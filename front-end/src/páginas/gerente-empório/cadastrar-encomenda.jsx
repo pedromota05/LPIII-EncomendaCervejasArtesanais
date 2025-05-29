@@ -37,7 +37,7 @@ import {
 export default function CadastrarEncomenda() {
   const referênciaToast = useRef(null);
   const { usuárioLogado } = useContext(ContextoUsuário);
-  const { encomendaConsultado, cervejaArtesanalSelecionada } = useContext(ContextoGerenteEmpório);
+  const { encomendaConsultado, cervejaArtesanalSelecionada, setCervejaArtesanalEncomenda, setCervejaArtesanalConsultada } = useContext(ContextoGerenteEmpório);
   const [dados, setDados] = useState({
     id_cerveja: cervejaArtesanalSelecionada?.id || "",
     data_encomenda: encomendaConsultado?.data_encomenda ? new Date(encomendaConsultado.data_encomenda).toISOString().split('T')[0] : "",
@@ -137,6 +137,7 @@ export default function CadastrarEncomenda() {
             label="Remover"
             onClick={removerEncomenda}
           />
+          <Button className={estilizarBotão()} label="Cerveja Artesanal" onClick={consultarCervejaArtesanalEncomenda}/>
         </div>
       );
     } else {
@@ -211,6 +212,12 @@ export default function CadastrarEncomenda() {
       );
     } else return null;
   }
+
+  function consultarCervejaArtesanalEncomenda() {
+    setCervejaArtesanalConsultada(encomendaConsultado?.cervejaArtesanal || null);
+    setCervejaArtesanalEncomenda(encomendaConsultado?.cervejaArtesanal || null);
+    navegar("../consultar-cerveja-artesanal");
+  };
 
   return (
     <div style={{ 

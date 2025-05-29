@@ -10,6 +10,7 @@ import { Toast } from "primereact/toast";
 import { Checkbox } from "primereact/checkbox";
 import ContextoUsuário from "../../contextos/contexto-usuário";
 import ContextoCriador from "../../contextos/contexto-criador";
+import ContextoGerenteEmpório from "../../contextos/contexto-gerente-empório";
 import {
     serviçoAlterarCervejaArtesanal,
     serviçoCadastrarCervejaArtesanal,
@@ -42,6 +43,10 @@ export default function CadastrarCervejaArtesanal() {
     const referênciaToast = useRef(null);
     const { usuárioLogado } = useContext(ContextoUsuário);
     const { cervejaArtesanalConsultada } = useContext(ContextoCriador);
+    const {
+        cervejaArtesanalEncomenda,
+        setCriadorProponente
+    } = useContext(ContextoGerenteEmpório) || {};
     const [dados, setDados] = useState({
         nome: cervejaArtesanalConsultada?.nome || "",
         teor_alcoolico: cervejaArtesanalConsultada?.teor_alcoolico || "",
@@ -163,6 +168,7 @@ export default function CadastrarCervejaArtesanal() {
                         label="Alterar"
                         onClick={alterarCervejaArtesanal}
                     />
+                    <Button className={estilizarBotão()} label="Encomendas" onClick={mostrarEncomendas}/>
                 </div>
             );
         } else {
@@ -190,16 +196,18 @@ export default function CadastrarCervejaArtesanal() {
  
     useEffect(() => {
         async function buscarCategoriasCervejasArtesanais() {
-        try {
-            const response = await serviçoBuscarEncomendasCervejasArtesanais();
-            if (response.data) setListaCategorias(response.data);
-        } catch (error) {
-            const erro = error.response.data.erro;
-            if (erro) mostrarToast(referênciaToast, erro, "erro");
-        }
+            try {
+                const response = await serviçoBuscarEncomendasCervejasArtesanais();
+                if (response.data) setListaCategorias(response.data);
+            } catch (error) {
+                const erro = error.response.data.erro;
+                if (erro) mostrarToast(referênciaToast, erro, "erro");
+            }
         }
         buscarCategoriasCervejasArtesanais();
     }, []);
+
+    function mostrarEncomendas() { navegar("../pesquisar-encomendas"); };
  
     return (
         <div style={{ 

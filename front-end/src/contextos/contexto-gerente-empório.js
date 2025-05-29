@@ -6,6 +6,7 @@ export function ProvedorGerenteEmpório({ children }) {
     const [cervejaArtesanalConsultada, setCervejaArtesanalConsultada] = useState({});
     const [cervejaArtesanalSelecionada, setCervejaArtesanalSelecionada] = useState({});
     const [cervejaArtesanalEncomenda, setCervejaArtesanalEncomenda] = useState({});
+    const [criadorProponente, setCriadorProponente] = useState({});
     return (
         <ContextoGerenteEmpório.Provider
         value={{
@@ -17,6 +18,8 @@ export function ProvedorGerenteEmpório({ children }) {
             setCervejaArtesanalSelecionada,
             cervejaArtesanalEncomenda,
             setCervejaArtesanalEncomenda,
+            criadorProponente,
+            setCriadorProponente
         }}
         >
         {children}

@@ -9,6 +9,7 @@ import { InputTextarea } from "primereact/inputtextarea";
 import ContextoUsuário from "../../contextos/contexto-usuário";
 import ContextoGerenteEmpório from "../../contextos/contexto-gerente-empório";
 import {
+    estilizarBotão,
     estilizarBotãoRetornar,
     estilizarCard,
     estilizarCheckbox,
@@ -22,8 +23,8 @@ import {
 
  export default function ConsultarCervejaArtesanal() {
    const { usuárioLogado } = useContext(ContextoUsuário);
-   const { cervejaArtesanalConsultada, cervejaArtesanalInteresse } =
-     useContext(ContextoGerenteEmpório);
+   const { cervejaArtesanalConsultada, cervejaArtesanalInteresse, cervejaArtesanalEncomenda,
+        setCriadorProponente } = useContext(ContextoGerenteEmpório);
    const dados = {
      nome_criador:
        cervejaArtesanalConsultada?.criador?.usuário?.nome ||
@@ -40,9 +41,14 @@ import {
    };
    const navegar = useNavigate();
    function retornar() {
-     if (cervejaArtesanalConsultada) navegar("../pesquisar-cervejas-artesanais");
-     else if (cervejaArtesanalInteresse) navegar("../cadastrar-encomenda");
+    if (cervejaArtesanalConsultada) navegar("../pesquisar-cervejas-artesanais");
+    else if (cervejaArtesanalInteresse) navegar("../cadastrar-encomenda");
    }
+   function consultarCriadorProponente() {
+      if (cervejaArtesanalConsultada) setCriadorProponente(cervejaArtesanalConsultada.criador);
+      else setCriadorProponente(cervejaArtesanalEncomenda.criador);
+      navegar("../consultar-criador-proponente");
+    };
    return (
      <div style={{ 
       display: 'flex', 
@@ -126,6 +132,7 @@ import {
              label="Retornar"
              onClick={retornar}
            />
+           <Button className={estilizarBotão()} label="Criador" onClick={consultarCriadorProponente}/>
          </div>
        </Card>
      </div>
