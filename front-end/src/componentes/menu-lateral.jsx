@@ -1,10 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { Button } from "primereact/button";
 import { Menu } from "primereact/menu";
 import { Sidebar } from "primereact/sidebar";
-import { Dropdown } from "primereact/dropdown";
 
 import ContextoUsuário from "../contextos/contexto-usuário";
 import formatarPerfil from "../utilitários/formatar-perfil";
@@ -14,7 +13,6 @@ import {
   estilizarGridColunaSidebar,
   estilizarGridSidebar,
   estilizarMenu,
-  estilizarMenuLateralDesktop,
   estilizarMenuLateralMobile,
   estilizarSidebar,
   estilizarSubtítulo,
@@ -27,7 +25,6 @@ export default function MenuLateral({ children }) {
   const [visible, setVisible] = useState(false);
   const tamanhoDesktop = windowWidth > 991;
   const navegar = useNavigate();
-  const location = useLocation();
 
   const opçõesCriador = [
     {
@@ -190,18 +187,6 @@ export default function MenuLateral({ children }) {
     window.addEventListener("resize", redimensionarJanela);
     return () => window.removeEventListener("resize", redimensionarJanela);
   }, []);
-
-  useEffect(() => {
-    const { pathname } = location;
-    const element = document.querySelector(".w-card-user");
-    if (element) {
-      if (pathname === "/atualizar-usuario") {
-        element.style.width = "70%";
-      } else {
-        element.style.width = "";
-      }
-    }
-  }, [location]);
 
   return (
     <div className={estilizarGridSidebar(usuárioLogado?.cor_tema)}>

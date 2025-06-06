@@ -24,6 +24,9 @@ export default class Encomenda extends BaseEntity {
   @Column()
   quantidade: number;
 
+  @Column()
+  nota_fiscal_emitida: boolean;
+
   @ManyToOne(() => CervejaArtesanal, (CervejaArtesanal) => CervejaArtesanal.encomendas, {
     onDelete: "CASCADE",
   })

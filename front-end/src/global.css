@@ -275,4 +275,8 @@ td {
   .my_card_criador {
     width: auto;
   }
+  .buttons-usuario {
+    display: flex;
+    justify-content: center;
+  }
 }

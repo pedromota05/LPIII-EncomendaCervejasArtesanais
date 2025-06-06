@@ -110,6 +110,23 @@ export default function AdministrarEncomendas() {
         return "";
     }
 
+    function BooleanBodyTemplate(encomenda) {
+        if (encomenda.nota_fiscal_emitida) return "Sim";
+        else return "Não";
+    };
+
+    function BooleanFilterTemplate(opções) {
+        function alterarFiltroTriState(event) { return opções.filterCallback(event.value); };
+        return (
+        <div>
+            <label>Nota Fiscal Emitida:</label>
+            <TriStateCheckbox
+            className={estilizarTriStateCheckbox(usuárioLogado?.cor_tema)} value={opções.value}
+            onChange={alterarFiltroTriState}/>
+        </div>
+        );
+    };
+
     useEffect(() => {
         let desmontado = false;
         async function buscarEncomendasGerenteEmpório() {
@@ -196,6 +213,12 @@ export default function AdministrarEncomendas() {
                         showFilterOperator={false}
                         headerClassName={estilizarColumnHeader(usuárioLogado.cor_tema)}
                         sortable
+                    />
+                    <Column field="nota_fiscal_emitida" header="Nota Fiscal Emitida" filter showFilterOperator={false}
+                        headerClassName={estilizarColumnHeader(usuárioLogado.cor_tema)} sortable
+                        filterMatchMode="equals" filterElement={BooleanFilterTemplate}
+                        body={BooleanBodyTemplate} showClearButton={false} showAddButton={false}
+                        filterMenuClassName={estilizarFilterMenu()} dataType="boolean"
                     />
                 </DataTable>
                 <Divider className={estilizarDivider()} />

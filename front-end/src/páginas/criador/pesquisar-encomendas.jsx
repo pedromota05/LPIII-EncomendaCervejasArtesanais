@@ -7,13 +7,14 @@ import { DataTable } from "primereact/datatable";
 import { Divider } from "primereact/divider";
 import { Dropdown } from "primereact/dropdown";
 import { Toast } from "primereact/toast";
+import { TriStateCheckbox } from "primereact/tristatecheckbox";
 import ContextoUsuário from "../../contextos/contexto-usuário";
 import ContextoCriador from "../../contextos/contexto-criador";
 import mostrarToast from "../../utilitários/mostrar-toast";
 import { serviçoBuscarEncomendasCervejaArtesanal } from "../../serviços/serviços-criador";
 import { TAMANHOS, estilizarBotãoRetornar, estilizarBotãoTabela, estilizarCard,
     estilizarColumnHeader, estilizarColunaConsultar, estilizarDataTable, estilizarDataTablePaginator,
-    estilizarDivider, estilizarFilterMenu }
+    estilizarDivider, estilizarFilterMenu, estilizarTriStateCheckbox }
     from "../../utilitários/estilos";
 
 export default function PesquisarEncomendas() {
@@ -56,6 +57,23 @@ export default function PesquisarEncomendas() {
         };
         return <Dropdown value={opções.value} options={opçõesCategoria} placeholder="Selecione"
             onChange={alterarFiltroDropdown} showClear />;
+    };
+
+    function BooleanBodyTemplate(encomenda) {
+        if (encomenda.nota_fiscal_emitida) return "Sim";
+        else return "Não";
+    };
+    
+    function BooleanFilterTemplate(opções) {
+        function alterarFiltroTriState(event) { return opções.filterCallback(event.value); };
+        return (
+            <div>
+                <label>Nota Fiscal Emitida:</label>
+                <TriStateCheckbox
+                className={estilizarTriStateCheckbox(usuárioLogado?.cor_tema)} value={opções.value}
+                onChange={alterarFiltroTriState}/>
+            </div>
+        );
     };
 
     useEffect(() => {
@@ -107,6 +125,11 @@ export default function PesquisarEncomendas() {
                         headerClassName={estilizarColumnHeader(usuárioLogado.cor_tema)}
                         sortable
                     />
+                    <Column field="nota_fiscal_emitida" header="Nota Fiscal Emitida" dataType="boolean" filter showFilterOperator={false}
+                        body={BooleanBodyTemplate} filterElement={BooleanFilterTemplate}
+                        filterMatchMode="equals" showClearButton={false} showAddButton={false}
+                        filterMenuClassName={estilizarFilterMenu()}
+                        headerClassName={estilizarColumnHeader(usuárioLogado.cor_tema)} sortable/>
                 </DataTable>
                 <Divider className={estilizarDivider()}/>
                 <Button className={estilizarBotãoRetornar()} label="Retornar"

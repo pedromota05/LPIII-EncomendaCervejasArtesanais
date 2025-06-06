@@ -71,7 +71,7 @@ export default class ServiçosGerenteEmpório {
 
   static async cadastrarEncomenda(request, response) {
     try {
-      const { id_cerveja, data_encomenda, valor_total, quantidade, cpf } = request.body;
+      const { id_cerveja, data_encomenda, valor_total, quantidade, nota_fiscal_emitida, cpf } = request.body;
       const cpf_encriptado = md5(cpf);
       const gerenteEmpório = await GerenteEmpório.findOne({
         where: { usuário: cpf_encriptado },
@@ -89,6 +89,7 @@ export default class ServiçosGerenteEmpório {
         data_encomenda,
         valor_total,
         quantidade,
+        nota_fiscal_emitida,
         gerenteEmpório,
       }).save();
       return response.json();

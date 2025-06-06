@@ -8,6 +8,7 @@ import { InputText } from "primereact/inputtext";
 import { Toast } from "primereact/toast";
 import { Dropdown } from "primereact/dropdown";
 import { Calendar } from "primereact/calendar";
+import { Checkbox } from "primereact/checkbox";
 import ContextoUsuário from "../../contextos/contexto-usuário";
 import ContextoGerenteEmpório from "../../contextos/contexto-gerente-empório";
 import {
@@ -32,6 +33,7 @@ import {
   estilizarInputNumber,
   estilizarInputText,
   estilizarLabel,
+  estilizarCheckbox,
 } from "../../utilitários/estilos";
 
 export default function CadastrarEncomenda() {
@@ -43,6 +45,7 @@ export default function CadastrarEncomenda() {
     data_encomenda: encomendaConsultado?.data_encomenda ? new Date(encomendaConsultado.data_encomenda).toISOString().split('T')[0] : "",
     valor_total: encomendaConsultado?.valor_total || "",
     quantidade: encomendaConsultado?.quantidade || "",
+    nota_fiscal_emitida: encomendaConsultado?.nota_fiscal_emitida || "",
   });
   
   const [erros, setErros] = useState({});
@@ -50,7 +53,7 @@ export default function CadastrarEncomenda() {
 
   function alterarEstado(event) {
     const chave = event.target.name || event.value;
-    let valor = event.target.value;
+    let valor = event.target.value || event.checked;
     setDados({ ...dados, [chave]: valor });
   }
 
@@ -291,6 +294,14 @@ export default function CadastrarEncomenda() {
             style={{ height: "35px" }}
           />
           <MostrarMensagemErro mensagem={erros.quantidade} />
+        </div>
+
+        <div>
+          <label className={`mb-1 font-bold ${estilizarLabel(usuárioLogado.cor_tema)}`}>
+            Nota Fiscal Emitida:
+          </label>
+          <Checkbox name="nota_fiscal_emitida" checked={dados.nota_fiscal_emitida}
+            className={estilizarCheckbox()} onChange={alterarEstado} autoResize/>
         </div>
 
         <Divider className={estilizarDivider()} />

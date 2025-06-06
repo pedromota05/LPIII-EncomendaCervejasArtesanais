@@ -215,7 +215,7 @@ export default function CadastrarUsuário() {
       );
     } else {
       return (
-        <div className={estilizarDivBotõesAção()}>
+        <div className={`buttons-usuario ${estilizarDivBotõesAção()}`}>
           <Button
             className={estilizarBotão(dados.cor_tema)}
             label="Alterar"
@@ -233,6 +233,8 @@ export default function CadastrarUsuário() {
 
   function alinharCentro() {
     if (!usuárioLogado?.cadastrado) return "center";
+    if (usuárioLogado?.perfil) return "center";
+    return undefined;
   }
 
   return (

@@ -27,7 +27,7 @@ import {
     estilizarTriStateCheckbox,
 } from "../../utilitários/estilos";
 
-export default function PesquisarPeçasMusicais() {
+export default function PesquisarCervejasArtesanais() {
     const referênciaToast = useRef(null);
     const { usuárioLogado } = useContext(ContextoUsuário);
     const {
